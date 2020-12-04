@@ -1,0 +1,102 @@
+{{define "title"}}Crackme{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+<script language="javascript" type="text/javascript">
+        function changeTab1(id1, id2) {
+            document.getElementById(id1).style.display = 'none';
+            document.getElementById(id2).style.display = 'block';
+        }
+</script>
+<div class="container grid-lg wrapper">
+        <h3><a href="/user/{{.username}}">{{.username}}</a>'s {{.name}}</h3>
+        <div class="columns panel-background">
+            <div class="column col-3">
+                <p>Author:<br> <a href="/user/{{.username}}">{{.username}}</a></p>
+            </div>
+            <div class="column col-3">
+                <p>Language:<br> {{.lang}}</p>
+            </div>
+            <div class="column col-3">
+                <p>Upload:<br> {{.createdat | PRETTYTIME}}</p>
+            </div>
+            <div class="column col-1">
+                <p>Level:<br> {{.difficulty}}</p>
+            </div>
+            <div class="column col-2" style="padding-right: 0rem">
+                <a href="/static/crackme/{{.hexid}}.zip" class="btn active btn-lg btn-download">Download</a>
+            </div>
+	    <div class="column col-12">
+                <p>Platform<br>
+                {{.platform}}</p>
+                <div class="divider"></div>
+            </div>
+            <div class="column col-12">
+                <p><b>Description</b></p>
+                <p><span style="white-space: pre-line">{{.info}}</span></p>
+                <div class="divider"></div>
+            </div>
+           
+	    <div class="column col-4" style="margin-bottom:20px;">
+                <ul class="tab tab-block" style="border-bottom: .05rem solid transparent;">
+                    <li class="tab-item">
+                        <a onclick="changeTab1('solutions', 'comments')">Comments</a>
+                    </li>
+                    <li class="tab-item">
+                        <a onclick="changeTab1('comments', 'solutions')">Solutions</a>
+                    </li>
+                </ul>
+	   </div>
+	
+            <div class="column col-12" id="comments" style="display:none">
+		{{if eq .AuthLevel "auth"}}		
+		<a href="#modal-comment" class="btn float-right" style="margin-top:-65px;">Post a comment</a>
+		{{else}}
+		{{end}}
+		{{range $n := .comments}}
+                <p><a href="/user/{{.Author}}">{{.Author}}</a> on {{.CreatedAt | PRETTYTIME}}: <span style="white-space: pre-line">{{.Content}}</span></p>
+                {{end}}
+            </div>
+            <div class="column col-12" id="solutions" style="display:none">
+		{{if eq .AuthLevel "auth"}}
+                <p>You want to share your solution ? Please follow this <b><a href="/upload/solution/{{.hexid}}">link</a></b> and check the instructions !</p>
+		{{else}}
+		<p>You must me logged to submit a solution</p>
+		{{end}}
+		<div class="columns">
+			{{range $n := .solutions}}
+			<div class="column col-9">
+                    		<p>Solution by <a href="/user/{{.Author}}">{{.Author}}</a>:<br/><span style="white-space: pre-line">{{.Info}}</span></p>
+			</div>
+			<div class="column col-3">
+		    		<a href="/static/solution/{{.HexId}}.zip">Download</a>
+			</div>
+			{{end}}
+            	</div>
+           </div>
+	</div>	
+	<div class="modal" id="modal-comment">
+            <a href="#close" class="modal-overlay" aria-label="Close"></a>
+            <div class="modal-container">
+                <div class="modal-header">
+                        <a href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+                        <div class="modal-title h5">Write a comment</div>
+                        </div>
+                        <div class="modal-body">
+                                <div class="content">
+                                        <p>Share how awesome the crack me was or where you struggle to finish it ! (Stay polite)</p>
+                                        <form action="/comment/{{.hexid}}" method="post">
+                                                <textarea name="comment" id="comment" placeholder="An awesome comment"  style="width: 100%;"rows="5"></textarea>
+                                                <input type="submit" class="btn active float-right" value="Post a comment">
+                                                <input type="hidden" id="token" name="token" value="{{.token}}">
+                                        </form>
+                                </div>
+                        </div>
+                </div>
+            </div>
+</div>
+
+                		
+	
+{{template "footer" .}}
+{{end}}
+{{define "foot"}}{{end}}

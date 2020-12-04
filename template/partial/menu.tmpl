@@ -1,0 +1,67 @@
+<header class="navbar hide-xs">
+        <section class="navbar-section">
+            <h2><a href="/" class="title-navbar">crackmes.one</a></h2>
+        </section>
+        <section class="navbar-center">
+            -
+</section>
+
+{{if eq .AuthLevel "auth"}}
+
+<section class="navbar-section">
+	    <a href="{{.BaseURI}}search" class="btn btn-link">Search</a>
+	    <a href="{{.BaseURI}}upload/crackme" class="btn btn-link">Upload crackme</a>
+            <a href="{{.BaseURI}}lasts" class="btn btn-link">Latest Crackmes</a> 
+            <a href="{{.BaseURI}}faq" class="btn btn-link">Faq</a>
+            <a href="{{.BaseURI}}user/{{.usersess}}" class="btn btn-link">Profile</a>
+            <a href="{{.BaseURI}}logout" class="btn btn-link">Logout</a>
+</section>
+</header>
+<div class="off-canvas show-xs">
+      <h2 class="text-center"><a href="/" class="title-navbar">crackmes.one</a></h2>
+      <!-- off-screen toggle button -->
+      <a class="off-canvas-toggle btn btn-primary btn-action" href="#sidebar-id">
+        <i class="icon icon-menu"></i>
+      </a>
+    
+      <div id="sidebar-id" class="off-canvas-sidebar">
+        <ul class="nav">
+	  <li class="nav"><a href="{{.BaseURI}}upload/crackme" class="btn btn-link">Upload crackme</a>
+          <li class="nav"><a href="{{.BaseURI}}lasts" class="btn btn-link">Latest Crackmes</a></li> 
+          <li class="nav"><a href="{{.BaseURI}}faq" class="btn btn-link">Faq</a></li>
+          <li class="nav"><a href="{{.BaseURI}}user/{{.usersess}}" class="btn btn-link">Profile</a></li>
+          <li class="nav"><a href="{{.BaseURI}}logout" class="btn btn-link">Logout</a></li>
+      	</ul>
+	</div>
+        <a class="off-canvas-overlay" href="#close"></a>
+</div>
+
+{{else}}
+
+        <section class="navbar-section">
+            <a href="{{.BaseURI}}search" class="btn btn-link">Search</a>
+            <a href="{{.BaseURI}}lasts" class="btn btn-link">Latest Crackmes</a>
+            <a href="{{.BaseURI}}faq" class="btn btn-link">Faq</a>
+            <a href="{{.BaseURI}}login" class="btn btn-link">Login</a>
+            <a href="{{.BaseURI}}register" class="btn btn-link">Register</a>
+</section>
+</header>
+<div class="off-canvas show-xs">
+      <h2 class="text-center"><a href="/" class="title-navbar">crackmes.one</a></h2>
+      <!-- off-screen toggle button -->
+      <a class="off-canvas-toggle btn btn-primary btn-action" href="#sidebar-id">
+        <i class="icon icon-menu"></i>
+      </a>
+    
+      <div id="sidebar-id" class="off-canvas-sidebar">
+        <ul class="nav">
+          <li class="nav"><a href="{{.BaseURI}}lasts" class="btn btn-link">Latest Crackmes</a></li>
+          <li class="nav"><a href="{{.BaseURI}}faq" class="btn btn-link">Faq</a></li>
+          <li class="nav"><a href="{{.BaseURI}}login" class="btn btn-link">Login</a></li>
+          <li class="nav"><a href="{{.BaseURI}}register" class="btn btn-link">Register</a></li>
+          </ul>
+        </div>
+        <a class="off-canvas-overlay" href="#close"></a>
+      </ul>
+</div>
+{{end}}

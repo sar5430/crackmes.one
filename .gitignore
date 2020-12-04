@@ -1,0 +1,6 @@
+config/*
+tls/*
+static/crackme/*
+static/solution/*
+*.log
+tmp/*

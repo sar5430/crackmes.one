@@ -1,0 +1,29 @@
+{{define "title"}}Users{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+
+<div class="container grid-lg wrapper">
+        <h2>Users</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr style="text-align: center;">
+                    <th style="width: 150px;">Username</th>
+                    <th style="width: 150px;">Solutions</th>
+                    <th style="width: 100px;">Crackmes</th>
+                    <th style="width: 70px;">Comments</th>
+                </tr>
+            </thead>
+            <tbody id="content-list">
+                <tr class="text-center">
+                    <td> <a href="">{{.Name}}</a></td>
+                    <td> {{.NbSolutions}}</td>
+                    <td> {{.NbCrackmes}}</td>
+                    <td> {{.NbComments}}</td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+
+	{{template "footer" .}}
+{{end}}
+{{define "foot"}}{{end}}

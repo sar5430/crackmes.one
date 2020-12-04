@@ -1,0 +1,54 @@
+{{define "title"}}Create an Account{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+
+ <div class="container grid-lg wrapper">
+        <div class="columns" style="justify-content: center;">
+                <div class="column col-6 col-xs-12 panel-input">
+                    <form class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <div class="col-3 col-sm-12">
+                            <label class="form-label" for="name">Username</label>
+                            </div>
+                            <div class="col-9 col-sm-12">
+                            <input class="form-input" type="text" name="name" id="name" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-3 col-sm-12">
+                            <label class="form-label" for="email">Email</label>
+                            </div>
+                            <div class="col-9 col-sm-12">
+                            <input class="form-input" type="email" id="email" name="email" placeholder="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-3 col-sm-12">
+                            <label class="form-label" for="password">Password</label>
+                            </div>
+                            <div class="col-9 col-sm-12">
+                            <input class="form-input" type="password" id="password" name="password" placeholder="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-3 col-sm-12">
+                            <label class="form-label" for="password_verify">Verify Password</label>
+                            </div>
+                            <div class="col-9 col-sm-12">
+                            <input class="form-input" type="password" id="password_verify" name="password_verify" placeholder="password">
+                            </div>
+                        </div>
+			<input type="hidden" id="token" name="token" value="{{.token}}">
+			<div class="g-recaptcha float-right" data-sitekey="6Lc_tlMUAAAAAOmH6i02uqOqbhbO5tgdH1Fi08TR"></div>
+            		</br></br></br></br>
+                    <input type="submit" class="btn active float-right" value="Register a new account">
+                    </form>
+                </div>
+	</div>
+</div>
+
+
+{{template "footer" .}}
+
+{{end}}
+{{define "foot"}}{{end}}

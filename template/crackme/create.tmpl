@@ -1,0 +1,89 @@
+{{define "title"}}Upload crackme{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+
+<div class="container grid-lg wrapper">
+        <h2>Upload a crackme</h2>
+        <p>Please provide details in the infos section. You can upload just the executable or an archive containing needed resources.</p>
+        <div class="divider"></div>
+        <form class="form-horizontal" action="/upload/crackme" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <div class="col-3 col-sm-12">
+                <label class="form-label" for="name">Crackme name</label>
+                </div>
+                <div class="col-9 col-sm-12">
+                <input class="form-input" type="text" id="name" name="name" placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-3 col-sm-12">
+                    <label class="form-label">Difficulty</label>
+                </div>
+                <div class="col-9 col-sm-12">
+                    <select class="form-select" id="difficulty" name="difficulty" multiple="">
+                    <option value="1">1. Very Easy</option>
+                    <option value="2">2. Easy</option>
+                    <option value="3">3. Medium</option>
+                    <option value="4">4. Hard</option>
+                    <option value="5">5. Very Hard</option>
+                    <option value="6">6. Insane</option>
+                    </select>
+                </div>
+            </div>
+	    <div class="form-group">
+            <div class="col-3 col-sm-12">
+                <label class="form-label" for="lang">Langage</label>
+            </div>
+            <div class="col-9 col-sm-12">
+                    <select class="form-select" id="lang" name="lang" multiple="">
+                    <option value="C/C++">C/C++</option>
+                    <option value="Assembler">Assembler</option>
+                    <option value="Java">Java</option>
+                    <option value="(Visual) Basic">(Visual) Basic</option>
+                    <option value="Borland Delphi">Borland Delphi</option>
+                    <option value="Turbo Pascal">Turbo Pascal</option>
+                    <option value=".NET">.NET</option>
+                    <option value="Unspecified/other">Unspecified/other</option>
+                    </select>
+                </div>
+            </div>
+	    <div class="form-group">
+            <div class="col-3 col-sm-12">
+                <label class="form-label" for="platform">Platform</label>
+            </div>
+            <div class="col-9 col-sm-12">
+                    <select class="form-select" id="platform" name="platform" multiple="">
+                    <option value="Mac OS X">Mac OS X</option>
+                    <option value="Multiplatform">Multiplatform</option> 
+                    <option value="Unix/linux etc.">Unix/linux etc.</option>
+                    <option value="Windows">Windows</option>
+                    <option value="Unspecified/other">Unspecified/other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="col-3">
+                <label class="form-label" for="input-upload">File</label>
+            </div>
+            <div class="col-9">
+                <input class="form-input upload-btn" type="file" id="file" name="file">
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="col-3 col-sm-12">
+                <label class="form-label" for="info">Info</label>
+                </div>
+                <div class="col-9 col-sm-12">
+                <textarea class="form-input" id="info" name="info" placeholder="Textarea" rows="3"></textarea>
+                </div>
+            </div>
+	    <input type="hidden" id="token" name="token" value="{{.token}}"> 
+	    <div class="g-recaptcha float-right" data-sitekey="6Lc_tlMUAAAAAOmH6i02uqOqbhbO5tgdH1Fi08TR"></div>
+	    </br></br></br></br>
+            <input type="submit" class="btn active float-right" value="Upload a crackme"> 
+	</form>	
+</div>
+		
+{{template "footer" .}}
+{{end}}
+{{define "foot"}}{{end}}

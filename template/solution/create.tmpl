@@ -1,0 +1,41 @@
+{{define "title"}}Upload solution{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+
+<div class="container grid-lg wrapper">
+        <h2>Upload a solution</h2>
+        <p>Upload your solution ! I've heard that most of users prefers simples text files.</p>
+
+        <div class="divider"></div>
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="col-3">Crackme</div>
+            <div class="col-9">{{.crackmename}} by {{.username}}</div>
+            </div>    
+	<div class="form-group">
+            <div class="col-3">
+                <label class="form-label" for="file">File</label>
+            </div>
+            <div class="col-9">
+                <input class="form-input upload-btn" type="file" id="file" name="file">
+            </div>
+	    </div>
+            <div class="form-group">
+                <div class="col-3 col-sm-12">
+                <label class="form-label" for="info">Infos</label>
+                </div>
+                <div class="col-9 col-sm-12">
+                <textarea class="form-input" id="info" name="info" placeholder="Textarea" rows="3"></textarea>
+                </div>
+            </div>
+	    <div class="g-recaptcha float-right" data-sitekey="6Lc_tlMUAAAAAOmH6i02uqOqbhbO5tgdH1Fi08TR"></div>
+            </br></br></br></br>
+            <input type="submit" class="btn active float-right" value="Upload a solution">
+	    	<input type="hidden" id="hexidcrackme" name="hexidcrackme" value="{{.hexidcrackme}}">
+		<input type="hidden" id="token" name="token" value="{{.token}}">
+        </form>
+</div>
+{{template "footer" .}}
+
+{{end}}
+{{define "foot"}}{{end}}

@@ -1,0 +1,107 @@
+{{define "title"}}Search a crackme{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+
+
+<div class="container grid-lg wrapper">
+        
+        <h2>Crackme search</h2>
+	<form class="form-horizontal" method="post">
+        <div class="form-group">
+            <div class="col-3">Crackme name</div>
+            <div class="col-9 col-sm-12">
+                <input class="form-input" type="text" id="name" name="name" placeholder="Name">
+                </div> 
+            </div>
+	<div class="form-group">
+            <div class="col-3">Author</div>
+            <div class="col-9 col-sm-12">
+                <input class="form-input" type="text" id="author" name="author" placeholder="Author">
+                </div>
+            </div>
+	    <div class="form-group">
+                <div class="col-3 col-sm-12">
+                    <label class="form-label">Difficulty</label>
+                </div>
+                <div class="col-9 col-sm-12">
+                    <select class="form-select" id="difficulty" name="difficulty" multiple="">
+                    <option value="1">1. Very Easy</option>
+                    <option value="2">2. Easy</option>
+                    <option value="3">3. Medium</option>
+                    <option value="4">4. Hard</option>
+                    <option value="5">5. Very Hard</option>
+                    <option value="6">6. Insane</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="col-3 col-sm-12">
+                <label class="form-label" for="lang">Langage</label>
+            </div>
+            <div class="col-9 col-sm-12">
+                    <select class="form-select" id="lang" name="lang" multiple="">
+                    <option value="C/C++">C/C++</option>
+                    <option value="Assembler">Assembler</option>
+                    <option value="Java">Java</option>
+                    <option value="\(Visual\) Basic">(Visual) Basic</option>
+                    <option value="Borland Delphi">Borland Delphi</option>
+                    <option value="Turbo Pascal">Turbo Pascal</option>
+                    <option value="\.NET">.NET</option>
+                    <option value="Unspecified/other">Unspecified/other</option>
+                    </select>
+                </div>
+            </div>
+	    <div class="form-group">
+            <div class="col-3 col-sm-12">
+                <label class="form-label" for="platform">Platform</label>
+            </div>
+            <div class="col-9 col-sm-12">
+                    <select class="form-select" id="platform" name="platform" multiple="">
+                    <option value="DOS">DOS</option> 
+                    <option value="Mac OS X">Mac OS X</option>
+                    <option value="Multiplatform">Multiplatform</option> 
+                    <option value="Unix/linux etc\.">Unix/linux etc.</option>
+                    <option value="Windows">Windows</option>
+                    <option value="Windows 2000/XP only">Windows 2000/XP only</option>
+                    <option value="Windows 7 Only">Windows 7 Only</option>
+                    <option value="Windows Vista Only">Windows Vista Only</option>
+                    <option value="Unspecified/other">Unspecified/other</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" class="btn active float-right" value="Search"> 
+                <input type="hidden" id="token" name="token" value="{{.token}}">
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr style="text-align: center;">
+                    <th style="width: 150px;">Name</th>
+                    <th style="width: 150px;">Author</th>
+                    <th style="width: 80px;">Language</th>
+                    <th style="width: 40px;">Difficulty</th>
+                    <th style="width: 70px;">Platform</th>
+                    <th style="width: 70px;">Date</th>
+                    <th style="width: 40px;">Solution</th>
+                    <th style="width: 40px;">Comments</th>
+                </tr>
+            </thead>
+            <tbody id="content-list">
+                {{range $n := .crackmes}}
+                <tr class="text-center">
+                    <td> <a href="/crackme/{{.HexId}}">{{.Name}}</a></td>
+                    <td> <a href="/user/{{.Author}}">{{.Author}}</a> </td>
+                    <td> {{.Lang}} </td>
+                    <td> {{.Difficulty}} </td>
+                    <td> {{.Platform}} </td>
+                    <td> {{.CreatedAt | PRETTYTIME}} </td>
+                    <td> {{.NbSolutions}} </td>
+                    <td> {{.NbComments}} </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+</div>
+{{template "footer" .}}
+
+{{end}}
+{{define "foot"}}{{end}}

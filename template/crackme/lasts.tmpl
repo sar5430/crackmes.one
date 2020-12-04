@@ -1,0 +1,40 @@
+{{define "title"}}Latest crackmes{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+
+ <div class="container grid-lg wrapper">
+        
+        <h2>Latest Crackmes</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr style="text-align: center;">
+                    <th style="width: 150px;">Name</th>
+                    <th style="width: 150px;">Author</th>
+                    <th style="width: 80px;">Language</th>
+                    <th style="width: 40px;">Difficulty</th>
+                    <th style="width: 70px;">Platform</th>
+                    <th style="width: 70px;">Date</th>
+                    <th style="width: 40px;">Solution</th>
+                    <th style="width: 40px;">Comments</th>
+                </tr>
+            </thead>
+            <tbody id="content-list">
+		{{range $n := .crackmes}}		
+                <tr class="text-center">
+                    <td> <a href="/crackme/{{.HexId}}">{{.Name}}</a></td>
+                    <td> <a href="/user/{{.Author}}">{{.Author}}</a> </td>
+                    <td> {{.Lang}} </td>
+		    <td> {{.Difficulty}} </td>
+		    <td> {{.Platform}} </td>
+		    <td> {{.CreatedAt | PRETTYTIME}} </td>
+                    <td> {{.NbSolutions}} </td>
+                    <td> {{.NbComments}} </td>
+		</tr>
+		{{end}}
+	    </tbody>
+	</table>
+</div>
+	
+	{{template "footer" .}}
+{{end}}
+{{define "foot"}}{{end}}
