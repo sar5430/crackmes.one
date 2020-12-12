@@ -136,6 +136,11 @@ func routes() *httprouter.Router {
 	r.GET("/debug/pprof/*pprof", hr.Handler(alice.
 		New(acl.DisallowAnon).
 		ThenFunc(pprofhandler.Handler)))
+
+	// RSS
+	r.GET("/rss/crackme", hr.Handler(alice.
+		New().
+		ThenFunc(controller.RssCrackmesGET)))
 	return r
 }
 
