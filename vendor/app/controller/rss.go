@@ -58,12 +58,14 @@ func RssCrackmesGET(w http.ResponseWriter, r *http.Request) {
 		Items: items,
 	}
 
-	b, err := xml.MarshalIndent(crss, "", "    ")
+	b, err := xml.Marshal(crss)
 	if err != nil {
 		log.Println(err)
 		Error500(w, r)
 		return
 	}
 
+	w.Header().Set("content-type", "application/rss+xml; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
 	w.Write(b)
 }
