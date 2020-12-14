@@ -44,10 +44,10 @@ func RssCrackmesGET(w http.ResponseWriter, r *http.Request) {
 			Title: v.Name+" ["+v.Platform+" - "+v.Lang+" - "+diffs[diffNum-1]+"]",
 			Description: v.Info,
 			Author: v.Author,
-			PubDate: v.CreatedAt.Format(time.RFC822),
+			PubDate: v.CreatedAt.Format(time.RFC1123Z),
 			Category: v.Platform,
 			Link: "https://crackmes.one/crackme/"+v.HexId,
-			Guid: v.HexId,
+			Guid: "https://crackmes.one/crackme/"+v.HexId,
 		})
 	}
 	crss := rss{
