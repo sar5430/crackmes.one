@@ -5,16 +5,17 @@ from pymongo import MongoClient
 
 type_object = sys.argv[1]
 file_loc = sys.argv[2]
+
 [username, hexid, filename] = file_loc.split('+++')
 
 client = MongoClient('127.0.0.1')
 db = client.crackmesone
 
 if type_object == "crackme":
-	file_loc = "../tmp/crackme/" + file_loc
+	file_loc = "/home/crackmesone/go/src/github.com/5tanislas/crackmes.one/tmp/crackme/" + file_loc
 	collection = db.crackme
 elif type_object == "solution":
-	file_loc = "../tmp/solution/" + file_loc
+	file_loc = "/home/crackmesone/go/src/github.com/5tanislas/crackmes.one/tmp/solution/" + file_loc
 	collection = db.solution
 else:
 	print("[-] I don't understand the type")
