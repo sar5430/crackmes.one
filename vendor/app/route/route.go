@@ -128,7 +128,7 @@ func routes() *httprouter.Router {
 		ThenFunc(controller.UploadSolutionPOST)))
 
 	// Comments
-	r.POST("/comment/:crackmehexid", hr.Handler(alice.
+	r.POST("/comment/:hexid", hr.Handler(alice.
 		New(acl.DisallowAnon).
 		ThenFunc(controller.LeaveCommentPOST)))
 

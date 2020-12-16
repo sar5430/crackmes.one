@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"app/model"
+	"app/shared/recaptcha"
 	"app/shared/session"
 	"app/shared/view"
 
@@ -19,11 +20,18 @@ func LeaveCommentPOST(w http.ResponseWriter, r *http.Request) {
 	var err error
 	var params httprouter.Params
         params = context.Get(r, "params").(httprouter.Params)
-        crackmehexid := params.ByName("crackmehexid")
+        crackmehexid := params.ByName("hexid")
 
 	// Validate with required fields
 	if validate, missingField := view.Validate(r, []string{"comment"}); !validate {
 		sess.AddFlash(view.Flash{"Field missing: " + missingField, view.FlashError})
+		sess.Save(r, w)
+		CrackMeGET(w, r)
+		return
+	}
+
+	if !recaptcha.Verified(r) {
+		sess.AddFlash(view.Flash{"reCAPTCHA invalid!", view.FlashError})
 		sess.Save(r, w)
 		CrackMeGET(w, r)
 		return
