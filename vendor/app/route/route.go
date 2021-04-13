@@ -9,7 +9,6 @@ import (
 	"app/route/middleware/logrequest"
 	"app/route/middleware/pprofhandler"
 	"app/shared/session"
-	"app/shared/hostname"
 
 	"github.com/gorilla/context"
 	"github.com/josephspurrier/csrfbanana"
@@ -29,10 +28,10 @@ func LoadHTTPS() http.Handler {
 
 // LoadHTTP returns the HTTPS routes and middleware
 func LoadHTTP() http.Handler {
-	//return middleware(routes())
+	return middleware(routes())
 
 	// Uncomment this and comment out the line above to always redirect to HTTPS
-	return http.HandlerFunc(redirectToHTTPS)
+	//return http.HandlerFunc(redirectToHTTPS)
 }
 
 // Optional method to make it easy to redirect from HTTP to HTTPS
@@ -115,7 +114,7 @@ func routes() *httprouter.Router {
 	r.POST("/upload/crackme", hr.Handler(alice.
 		New(acl.DisallowAnon).
 		ThenFunc(controller.UploadCrackMePOST)))
-	r.GET("/lasts", hr.Handler(alice.
+        r.GET("/lasts/:page", hr.Handler(alice.
                 New().
                 ThenFunc(controller.LastCrackMesGET)))
 
@@ -161,8 +160,6 @@ func middleware(h http.Handler) http.Handler {
 
 	// Log every request
 	h = logrequest.Handler(h)
-
-	h = hostname.Handler(h)
 
 	// Clear handler for Gorilla Context
 	h = context.ClearHandler(h)

@@ -30,7 +30,7 @@ type rss struct {
 var diffs = []string{"Very Easy", "Easy", "Medium", "Hard", "Very Hard", "Insane"}
 
 func RssCrackmesGET(w http.ResponseWriter, r *http.Request) {
-	crackmes, err := model.LastCrackMes()
+	crackmes, err := model.LastCrackMes(1)
 	if err != nil {
 		log.Println(err)
 		Error500(w, r)

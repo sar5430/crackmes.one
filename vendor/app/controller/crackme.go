@@ -68,7 +68,20 @@ func CrackMeGET(w http.ResponseWriter, r *http.Request) {
 
 func LastCrackMesGET(w http.ResponseWriter, r *http.Request) {
 	// Display the view
-	crackmes, err := model.LastCrackMes()
+	var params httprouter.Params
+
+	params = context.Get(r, "params").(httprouter.Params)
+	page := params.ByName("page")
+
+	pageint, err := strconv.Atoi(page)
+
+    if err != nil {
+		log.Println(err)
+		Error500(w, r)
+		return
+    }
+
+	crackmes, err := model.LastCrackMes(pageint)
 	if err != nil {
 		log.Println(err)
 		Error500(w, r)
@@ -78,6 +91,13 @@ func LastCrackMesGET(w http.ResponseWriter, r *http.Request) {
 	v := view.New(r)
 	v.Name = "crackme/lasts"
 	v.Vars["crackmes"] = crackmes
+    
+    if pageint == 1 {
+        v.Vars["prec"] = 1
+    } else {
+        v.Vars["prec"] = pageint - 1
+    }
+	v.Vars["next"] = pageint + 1
 	v.Render(w)
 }
 
