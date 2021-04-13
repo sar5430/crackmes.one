@@ -18,13 +18,14 @@ type Crackme struct {
 	Name        string        `bson:"name,omitempty"`
 	Info        string        `bson:"info,omitempty"`
 	Lang        string        `bson:"lang,omitempty"`
-	Difficulty  string        `bson:"difficulty,omitempty"`
 	Author      string        `bson:"author,omitempty"`
 	CreatedAt   time.Time     `bson:"created_at"`
 	Visible     bool          `bson:"visible"`
 	Deleted     bool          `bson:"deleted"`
-	NbSolutions int
-	NbComments  int
+    Difficulty  float64       `bson:"difficulty"`
+    Quality     float64       `bson:"quality"`
+    NbSolutions int           // Not present in the database! Just for rendering
+    NbComments  int           // Not present in the database! Just for rendering
 	Platform    string `bson:"platform,omitempty"`
 }
 
@@ -74,7 +75,7 @@ func GetAllCrackmes() ([]Crackme, error) {
 	return result, err
 }
 
-func CrackmeSet(hexid, champ string, nb int) error {
+func CrackmeSetFloat(hexid, champ string, nb float64) error {
 	var err error
 	if database.CheckConnection() {
 		// Create a copy of mongo
@@ -90,7 +91,7 @@ func CrackmeSet(hexid, champ string, nb int) error {
 	return err
 }
 
-func SearchCrackme(name, author, difficulty, lang, platform string) ([]Crackme, error) {
+func SearchCrackme(name, author, lang, platform string, difficulty int) ([]Crackme, error) {
 	var err error
 	var result []Crackme
 	if database.CheckConnection() {
@@ -100,7 +101,7 @@ func SearchCrackme(name, author, difficulty, lang, platform string) ([]Crackme, 
 		c := session.DB(database.ReadConfig().MongoDB.Database).C("crackme")
 
 		// Validate the object id
-		err = c.Find(bson.M{"name": bson.RegEx{name, "i"}, "lang": bson.RegEx{lang, "i"}, "difficulty": bson.RegEx{difficulty, "i"}, "author": bson.RegEx{author, "i"}, "visible": true, "platform": bson.RegEx{platform, "i"}}).Sort("-created_at").All(&result)
+		err = c.Find(bson.M{"name": bson.RegEx{name, "i"}, "lang": bson.RegEx{lang, "i"}, "difficulty": bson.M{ "$gte": difficulty},"author": bson.RegEx{author, "i"}, "visible": true, "platform": bson.RegEx{platform, "i"}}).Limit(150).Sort("-created_at").All(&result)
 	} else {
 		err = ErrUnavailable
 	}
@@ -180,7 +181,7 @@ func CrackmeByUserAndName(username, name string, visible bool) (Crackme, error) 
 }
 
 // NoteCreate creates a note
-func CrackmeCreate(name, info, username, lang, difficulty, platform string) error {
+func CrackmeCreate(name, info, username, lang, platform string) error {
 	var err error
 
 	if database.CheckConnection() {
@@ -194,7 +195,6 @@ func CrackmeCreate(name, info, username, lang, difficulty, platform string) erro
 			Name:       name,
 			Info:       info,
 			Lang:       lang,
-			Difficulty: difficulty,
 			Author:     username,
 			CreatedAt:  time.Now(),
 			Visible:    false,

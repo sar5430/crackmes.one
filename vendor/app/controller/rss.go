@@ -5,7 +5,6 @@ import (
 	"encoding/xml"
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 )
 
@@ -39,9 +38,22 @@ func RssCrackmesGET(w http.ResponseWriter, r *http.Request) {
 
 	var items []item
 	for _, v := range(crackmes) {
-		diffNum, _ := strconv.Atoi(v.Difficulty)
+
+        var difficulty float64
+        difficulties, err := model.RatingDifficultyByCrackme(v.HexId)
+        if err != nil {
+            log.Println(err)
+            Error500(w, r)
+            return
+        }
+
+        for _, d := range difficulties {
+            difficulty += float64(d.Rating)
+        }
+        difficulty /= float64(len(difficulties))
+
 		items = append(items, item{
-			Title: v.Name+" ["+v.Platform+" - "+v.Lang+" - "+diffs[diffNum-1]+"]",
+			Title: v.Name+" ["+v.Platform+" - "+v.Lang+" - "+diffs[int(difficulty) - 1]+"]",
 			Description: v.Info,
 			Author: v.Author,
 			PubDate: v.CreatedAt.Format(time.RFC1123Z),

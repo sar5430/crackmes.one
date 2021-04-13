@@ -2,6 +2,7 @@ package controller
 
 import (
 	"log"
+	"strconv"
 	"net/http"
 	"app/model"
 	"github.com/josephspurrier/csrfbanana"
@@ -21,21 +22,23 @@ func SearchGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func SearchPOST(w http.ResponseWriter, r *http.Request) {
-	sess := session.Instance(r)
+    var difficultyint int
 
-	/*if validate, missingField := view.Validate(r, []string{"name"}); !validate {
-		sess.AddFlash(view.Flash{"Field missing: " + missingField, view.FlashError})
-		sess.Save(r, w)
-		SearchGET(w, r)
-		return
-	}*/
+	sess := session.Instance(r)
 
 	name := r.FormValue("name")
 	author := r.FormValue("author")
 	difficulty := r.FormValue("difficulty")
 	lang := r.FormValue("lang")
 	platform := r.FormValue("platform")
-	crackmes, err := model.SearchCrackme(name, author, difficulty, lang, platform)
+
+    if difficulty == "" {
+        difficultyint = 0
+    } else {
+        difficultyint, _ = strconv.Atoi(difficulty)
+    }
+
+	crackmes, err := model.SearchCrackme(name, author, lang, platform, difficultyint)
 	if err != nil {
                 log.Println(err)
                 Error500(w, r)

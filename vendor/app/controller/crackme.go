@@ -24,6 +24,8 @@ func CrackMeGET(w http.ResponseWriter, r *http.Request) {
 	sess := session.Instance(r)
 	var params httprouter.Params
 
+    var difficulty, quality float64
+
 	params = context.Get(r, "params").(httprouter.Params)
 	hexid := params.ByName("hexid")
 
@@ -34,6 +36,34 @@ func CrackMeGET(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	difficulties, err := model.RatingDifficultyByCrackme(hexid)
+	if err != nil {
+		log.Println(err)
+		Error500(w, r)
+		return
+	}
+
+    for _, d := range difficulties {
+        difficulty += float64(d.Rating)
+    }
+    difficulty /= float64(len(difficulties))
+
+    model.CrackmeSetFloat(hexid, "difficulty", difficulty)
+
+	qualities, err := model.RatingQualityByCrackme(hexid)
+	if err != nil {
+		log.Println(err)
+		Error500(w, r)
+		return
+	}
+
+    for _, q := range qualities {
+        quality += float64(q.Rating)
+    }
+    quality /= float64(len(qualities))
+
+    model.CrackmeSetFloat(hexid, "quality", quality)
+
 	solutions, err := model.SolutionsByCrackme(crackme.ObjectId)
 	if err != nil {
 		log.Println(err)
@@ -41,7 +71,7 @@ func CrackMeGET(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	comments, err := model.CommentsByCrackMe(crackme.HexId)
+	comments, err := model.CommentsByCrackMe(hexid)
 	if err != nil {
 		log.Println(err)
 		Error500(w, r)
@@ -54,12 +84,13 @@ func CrackMeGET(w http.ResponseWriter, r *http.Request) {
 	v.Vars["name"] = crackme.Name
 	v.Vars["hexid"] = crackme.HexId
 	v.Vars["lang"] = crackme.Lang
-	v.Vars["difficulty"] = crackme.Difficulty
 	v.Vars["createdat"] = crackme.CreatedAt
 	v.Vars["username"] = crackme.Author
 	v.Vars["platform"] = crackme.Platform
 	v.Vars["solutions"] = solutions
 	v.Vars["comments"] = comments
+	v.Vars["difficulty"] = fmt.Sprintf("%.1f", difficulty)
+	v.Vars["quality"] = fmt.Sprintf("%.1f", quality)
 	v.Vars["token"] = csrfbanana.Token(w, r, sess)
 	v.Render(w)
 	sess.Save(r, w)
@@ -87,6 +118,24 @@ func LastCrackMesGET(w http.ResponseWriter, r *http.Request) {
 		Error500(w, r)
 		return
 	}
+
+    for _, c := range crackmes {
+        c.NbComments, err = model.CountCommentsByCrackme(c.HexId)
+
+        if err != nil {
+            log.Println(err)
+            Error500(w, r)
+            return
+        }
+
+        c.NbSolutions, err = model.CountSolutionsByCrackme(c.HexId)
+
+        if err != nil {
+            log.Println(err)
+            Error500(w, r)
+            return
+        }
+    }
 
 	v := view.New(r)
 	v.Name = "crackme/lasts"
@@ -178,16 +227,33 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = model.CrackmeCreate(name, info, username, lang, difficulty, platform)
+	err = model.CrackmeCreate(name, info, username, lang, platform)
 
 	if err != nil {
 		log.Println(err)
+        Error500(w, r)
 	}
 
 	crackme, err := model.CrackmeByUserAndName(username, name, false)
 
 	if err != nil {
 		log.Println(err)
+        Error500(w, r)
+	}
+
+	err = model.RatingDifficultyCreate(username, crackme.HexId, diffint)
+
+	if err != nil {
+		log.Println(err)
+        Error500(w, r)
+	}
+
+    // Start with a Quality rate of 3, with inaccessible username ""
+	err = model.RatingQualityCreate("", crackme.HexId, 3)
+
+	if err != nil {
+		log.Println(err)
+        Error500(w, r)
 	}
 
 	filename := path.Join("./tmp/crackme/" + username + "+++" + crackme.HexId + "+++" + header.Filename)
@@ -208,36 +274,4 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-}
-
-func UploadCount(w http.ResponseWriter, r *http.Request) {
-	// Get session
-	sess := session.Instance(r)
-
-	crackmes, _ := model.GetAllCrackmes()
-	for i, _ := range crackmes {
-		nbSolutions, err := model.CountSolutionsByCrackme(crackmes[i].ObjectId)
-		if err != nil {
-			log.Println(err)
-			Error500(w, r)
-			return
-		}
-
-		nbComments, err := model.CountCommentsByCrackme(crackmes[i].HexId)
-		if err != nil {
-			log.Println(err)
-			Error500(w, r)
-			return
-		}
-		model.CrackmeSet(crackmes[i].HexId, "nbsolutions", nbSolutions)
-		model.CrackmeSet(crackmes[i].HexId, "nbcomments", nbComments)
-
-	}
-
-	// Display the view
-	v := view.New(r)
-	v.Name = "crackme/create"
-	v.Vars["token"] = csrfbanana.Token(w, r, sess)
-	v.Render(w)
-	sess.Save(r, w)
 }

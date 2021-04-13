@@ -114,9 +114,15 @@ func routes() *httprouter.Router {
 	r.POST("/upload/crackme", hr.Handler(alice.
 		New(acl.DisallowAnon).
 		ThenFunc(controller.UploadCrackMePOST)))
-        r.GET("/lasts/:page", hr.Handler(alice.
+    r.GET("/lasts/:page", hr.Handler(alice.
                 New().
                 ThenFunc(controller.LastCrackMesGET)))
+	r.POST("/crackme/rate-qual/:hexid", hr.Handler(alice.
+		New(acl.DisallowAnon).
+		ThenFunc(controller.RateQualityPOST)))
+	r.POST("/crackme/rate-diff/:hexid", hr.Handler(alice.
+		New(acl.DisallowAnon).
+		ThenFunc(controller.RateDifficultyPOST)))
 
 	// Solutions
 	r.GET("/upload/solution/:hexidcrackme", hr.Handler(alice.

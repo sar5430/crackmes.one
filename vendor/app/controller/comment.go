@@ -47,16 +47,6 @@ func LeaveCommentPOST(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	
-	crackme, err := model.CrackmeByHexId(crackmehexid)	
-	if err != nil {
-                log.Println(err)
-        }
-	
-	err = model.CrackmeSet(crackmehexid, "nbcomments", crackme.NbComments + 1)
-	if err != nil {
-                log.Println(err)
-        }
 
 	sess.AddFlash(view.Flash{"Comment uploaded!", view.FlashSuccess})
 	sess.Save(r, w)

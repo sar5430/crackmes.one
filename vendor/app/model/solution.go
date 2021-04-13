@@ -58,14 +58,14 @@ func CountSolutionsByUser(username string) (int, error) {
 	return nb, standardizeError(err)
 }
 
-func CountSolutionsByCrackme(crackme bson.ObjectId) (int, error) {
+func CountSolutionsByCrackme(crackmehexid string) (int, error) {
 	var err error
 	var nb int
 	if database.CheckConnection() {
 		session := database.Mongo.Copy()
 		defer session.Close()
 		c := session.DB(database.ReadConfig().MongoDB.Database).C("solution")
-		nb, err = c.Find(bson.M{"crackmeid": crackme, "visible": true}).Count()
+		nb, err = c.Find(bson.M{"crackmehexid": crackmehexid, "visible": true}).Count()
 	} else {
 		err = ErrUnavailable
 	}

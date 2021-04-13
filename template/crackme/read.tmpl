@@ -20,16 +20,34 @@
                 <p>Upload:<br> {{.createdat | PRETTYTIME}}</p>
             </div>
             <div class="column col-1">
-                <p>Level:<br> {{.difficulty}}</p>
             </div>
             <div class="column col-2" style="padding-right: 0rem">
                 <a href="/static/crackme/{{.hexid}}.zip" class="btn active btn-lg btn-download">Download</a>
             </div>
-	    <div class="column col-12">
+
+	    <div class="column col-3">
                 <p>Platform<br>
                 {{.platform}}</p>
-                <div class="divider"></div>
-            </div>
+        </div>
+        <div class="column col-3">
+            <p>Difficulty:<br> {{.difficulty}}
+            {{if eq .AuthLevel "auth"}}		
+            <a href="#rate-diff">Rate!</a></p>
+            {{else}}
+            {{end}}
+        </div>
+        <div class="column col-3">
+            <p>Quality:<br> {{.quality}}
+            {{if eq .AuthLevel "auth"}}		
+            <a href="#rate-qual">Rate!</a></p>
+            {{else}}
+            {{end}}
+        </div>
+
+	    <div class="column col-12">
+            <div class="divider"></div>
+        </div>
+
             <div class="column col-12">
                 <p><b>Description</b></p>
                 <p><span style="white-space: pre-line">{{.info}}</span></p>
@@ -49,7 +67,7 @@
 	
             <div class="column col-12" id="comments" style="display:none">
 		{{if eq .AuthLevel "auth"}}		
-		<a href="#modal-comment" class="btn float-right" style="margin-top:-65px;">Post a comment</a>
+		<a href="#modal-comment" class="btn active float-right" style="margin-top:-65px;">Post a comment</a>
 		{{else}}
 		{{end}}
 		{{range $n := .comments}}
@@ -74,6 +92,7 @@
             	</div>
            </div>
 	</div>	
+
 	<div class="modal" id="modal-comment">
             <a href="#close" class="modal-overlay" aria-label="Close"></a>
             <div class="modal-container">
@@ -95,7 +114,64 @@
                         </div>
                 </div>
             </div>
-</div>
+
+	<div class="modal" id="rate-diff">
+        <a href="#close" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+            <div class="modal-header">
+                <a href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+                <div class="modal-title h5">Rate the difficulty</div>
+                </div>
+                <div class="modal-body">
+                    <div class="content">
+                        <p>How would you rate the difficulty of this crackme ?</p>
+                        <form action="/crackme/rate-diff/{{.hexid}}" method="post">
+                            <select class="form-select" id="difficulty" name="difficulty" multiple="">
+                                <option value="1">1. Very Easy</option>
+                                <option value="2">2. Easy</option>
+                                <option value="3">3. Medium</option>
+                                <option value="4">4. Hard</option>
+                                <option value="5">5. Very Hard</option>
+                                <option value="6">6. Insane</option>
+                            </select>
+
+                            <input type="submit" class="btn active float-right" value="Rate!">
+                            <input type="hidden" id="token" name="token" value="{{.token}}">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div class="modal" id="rate-qual">
+        <a href="#close" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+            <div class="modal-header">
+                <a href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+                <div class="modal-title h5">Rate the quality</div>
+                </div>
+                <div class="modal-body">
+                    <div class="content">
+                        <p>How would you rate the quality of this crackme ?</p>
+                        <form action="/crackme/rate-qual/{{.hexid}}" method="post">
+                            <select class="form-select" id="quality" name="quality" multiple="">
+                                <option value="1">1. Very bad</option>
+                                <option value="2">2. Bad</option>
+                                <option value="3">3. Medium</option>
+                                <option value="4">4. Good</option>
+                                <option value="5">5. Very good</option>
+                                <option value="6">6. Excellent</option>
+                            </select>
+
+                            <input type="submit" class="btn active float-right" value="Rate!">
+                            <input type="hidden" id="token" name="token" value="{{.token}}">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
                 		
 	
