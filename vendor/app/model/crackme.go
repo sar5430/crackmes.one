@@ -118,7 +118,7 @@ func LastCrackMes(page int) ([]Crackme, error) {
 		c := session.DB(database.ReadConfig().MongoDB.Database).C("crackme")
 
 		// Validate the object id
-		err = c.Find(bson.M{"visible": true}).Skip((page - 1) * 50).Limit(page * 50).Sort("-created_at").All(&result)
+		err = c.Find(bson.M{"visible": true}).Skip((page - 1) * 50).Limit(50).Sort("-created_at").All(&result)
 	} else {
 		err = ErrUnavailable
 	}
