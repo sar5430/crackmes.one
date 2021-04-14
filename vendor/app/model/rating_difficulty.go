@@ -16,7 +16,7 @@ type RatingDifficulty struct {
 	ObjectId     bson.ObjectId `bson:"_id,omitempty"`
 	Author       string        `bson:"author,omitempty"`
 	CrackMeHexId string        `bson:"crackmehexid,omitempty"`
-    Rating       int
+    Rating       int           `bson:"rating"`
 	CreatedAt    time.Time     `bson:"created_at"`
 	Visible      bool          `bson:"visible"`
 	Deleted      bool          `bson:"deleted"`

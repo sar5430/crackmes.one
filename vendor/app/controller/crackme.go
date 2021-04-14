@@ -119,16 +119,17 @@ func LastCrackMesGET(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    for _, c := range crackmes {
-        c.NbComments, err = model.CountCommentsByCrackme(c.HexId)
+    for i, c := range crackmes {
+        crackmes[i].NbComments, err = model.CountCommentsByCrackme(c.HexId)
 
         if err != nil {
             log.Println(err)
             Error500(w, r)
             return
         }
+        log.Println(c.NbComments)
 
-        c.NbSolutions, err = model.CountSolutionsByCrackme(c.HexId)
+        crackmes[i].NbSolutions, err = model.CountSolutionsByCrackme(c.HexId)
 
         if err != nil {
             log.Println(err)
@@ -248,8 +249,7 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
         Error500(w, r)
 	}
 
-    // Start with a Quality rate of 3, with inaccessible username ""
-	err = model.RatingQualityCreate("", crackme.HexId, 3)
+	err = model.RatingQualityCreate(username, crackme.HexId, 4)
 
 	if err != nil {
 		log.Println(err)
