@@ -140,7 +140,7 @@ func LastCrackMesGET(w http.ResponseWriter, r *http.Request) {
 	v := view.New(r)
 	v.Name = "crackme/lasts"
 	v.Vars["crackmes"] = crackmes
-    
+	    
     if pageint == 1 {
         v.Vars["prec"] = 1
     } else {

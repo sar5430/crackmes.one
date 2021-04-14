@@ -35,7 +35,7 @@ func IsAlreadyRatedQuality(username, crackmehexid string) (bool, error) {
     } else {
         res = false
     }
-	return res, standardizeError(err)
+	return res, err
 }
 
 func RatingQualityByCrackme(crackmehexid string) ([]RatingQuality, error) {
