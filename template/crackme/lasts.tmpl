@@ -25,8 +25,8 @@
                     <td> <a href="/crackme/{{.HexId}}">{{.Name}}</a></td>
                     <td> <a href="/user/{{.Author}}">{{.Author}}</a> </td>
                     <td> {{.Lang}} </td>
-		    <td> {{.Difficulty}} </td>
-		    <td> {{.Quality}} </td>
+		    <td> {{printf "%02f" .Difficulty}} </td>
+		    <td> {{printf "%02f" .Quality}} </td>
 		    <td> {{.Platform}} </td>
 		    <td> {{.CreatedAt | PRETTYTIME}} </td>
                     <td> {{.NbSolutions}} </td>

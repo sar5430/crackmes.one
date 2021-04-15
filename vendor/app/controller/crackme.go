@@ -127,7 +127,6 @@ func LastCrackMesGET(w http.ResponseWriter, r *http.Request) {
             Error500(w, r)
             return
         }
-        log.Println(c.NbComments)
 
         crackmes[i].NbSolutions, err = model.CountSolutionsByCrackme(c.HexId)
 

@@ -22,23 +22,26 @@ func SearchGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func SearchPOST(w http.ResponseWriter, r *http.Request) {
-    var difficultyint int
+    var difficulty_min_int, difficulty_max_int int
 
 	sess := session.Instance(r)
 
 	name := r.FormValue("name")
 	author := r.FormValue("author")
-	difficulty := r.FormValue("difficulty")
+	difficulty_min := r.FormValue("difficulty-min")
+	difficulty_max := r.FormValue("difficulty-max")
 	lang := r.FormValue("lang")
 	platform := r.FormValue("platform")
 
-    if difficulty == "" {
-        difficultyint = 0
+    if difficulty_min == "" || difficulty_max == "" {
+        difficulty_min_int = 1
+        difficulty_max_int = 6
     } else {
-        difficultyint, _ = strconv.Atoi(difficulty)
+        difficulty_min_int, _ = strconv.Atoi(difficulty_min)
+        difficulty_max_int, _ = strconv.Atoi(difficulty_max)
     }
 
-	crackmes, err := model.SearchCrackme(name, author, lang, platform, difficultyint)
+	crackmes, err := model.SearchCrackme(name, author, lang, platform, difficulty_min_int, difficulty_max_int)
 	if err != nil {
                 log.Println(err)
                 Error500(w, r)

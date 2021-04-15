@@ -91,7 +91,7 @@ func CrackmeSetFloat(hexid, champ string, nb float64) error {
 	return err
 }
 
-func SearchCrackme(name, author, lang, platform string, difficulty int) ([]Crackme, error) {
+func SearchCrackme(name, author, lang, platform string, difficulty_min, difficulty_max int) ([]Crackme, error) {
 	var err error
 	var result []Crackme
 	if database.CheckConnection() {
@@ -101,7 +101,15 @@ func SearchCrackme(name, author, lang, platform string, difficulty int) ([]Crack
 		c := session.DB(database.ReadConfig().MongoDB.Database).C("crackme")
 
 		// Validate the object id
-		err = c.Find(bson.M{"name": bson.RegEx{name, "i"}, "lang": bson.RegEx{lang, "i"}, "difficulty": bson.M{ "$gte": difficulty},"author": bson.RegEx{author, "i"}, "visible": true, "platform": bson.RegEx{platform, "i"}}).Limit(150).Sort("-created_at").All(&result)
+		err = c.Find(
+            bson.M{
+                "name": bson.RegEx{name, "i"}, 
+                "lang": bson.RegEx{lang, "i"}, 
+                "difficulty": bson.M{"$gte": difficulty_min, "$lte": difficulty_max},
+                "author": bson.RegEx{author, "i"}, 
+                "visible": true, 
+                "platform": bson.RegEx{platform, "i"},
+            }).Limit(150).Sort("-created_at").All(&result)
 	} else {
 		err = ErrUnavailable
 	}
