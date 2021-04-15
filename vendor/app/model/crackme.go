@@ -22,8 +22,8 @@ type Crackme struct {
 	CreatedAt   time.Time     `bson:"created_at"`
 	Visible     bool          `bson:"visible"`
 	Deleted     bool          `bson:"deleted"`
-    Difficulty  float64       `bson:"difficulty"`
-    Quality     float64       `bson:"quality"`
+    Difficulty  float64 `bson:"difficulty"`
+    Quality     float64 `bson:"quality"`
     NbSolutions int           // Not present in the database! Just for rendering
     NbComments  int           // Not present in the database! Just for rendering
 	Platform    string `bson:"platform,omitempty"`
@@ -84,7 +84,7 @@ func CrackmeSetFloat(hexid, champ string, nb float64) error {
 		c := session.DB(database.ReadConfig().MongoDB.Database).C("crackme")
 
 		// Validate the object id
-		err = c.Update(bson.M{"hexid": hexid}, bson.M{"$set": bson.M{champ: nb}})
+		err = c.Update(bson.M{"hexid": hexid}, bson.M{"$set": bson.M{champ: float64(nb)}})
 	} else {
 		err = ErrUnavailable
 	}

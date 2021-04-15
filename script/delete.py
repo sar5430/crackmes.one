@@ -14,6 +14,9 @@ db = client.crackmesone
 if type_object == "crackme":
 	file_loc = "/home/crackmesone/go/src/github.com/5tanislas/crackmes.one/tmp/crackme/" + file_loc
 	collection = db.crackme
+	rating_diff = db.rating_difficulty
+	rating_qual = db.rating_quality
+	
 elif type_object == "solution":
 	file_loc = "/home/crackmesone/go/src/github.com/5tanislas/crackmes.one/tmp/solution/" + file_loc
 	collection = db.solution
@@ -29,8 +32,13 @@ if db_object is None:
 
 print("[+] found in database !")
 print(db_object)
-print("[+] file deleted in db")
+
 collection.delete_one({'hexid': hexid})
+print("[+] file deleted in db")
+
+if type_object == "crackme":
+	rating_diff.delete_many({"crackmehexid": hexid})
+	rating_qual.delete_many({"crackmehexid": hexid})
 
 call(["rm", file_loc])
 print("[+] rm " + file_loc)

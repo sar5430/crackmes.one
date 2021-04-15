@@ -64,8 +64,9 @@ func CountSolutionsByCrackme(crackmehexid string) (int, error) {
 	if database.CheckConnection() {
 		session := database.Mongo.Copy()
 		defer session.Close()
+		//obj := bson.M{"crackmeid": crackmehexid}
 		c := session.DB(database.ReadConfig().MongoDB.Database).C("solution")
-		nb, err = c.Find(bson.M{"crackmehexid": crackmehexid, "visible": true}).Count()
+		nb, err = c.Find(bson.M{"crackmeid": bson.ObjectIdHex(crackmehexid), "visible": true}).Count()
 	} else {
 		err = ErrUnavailable
 	}

@@ -25,10 +25,10 @@
                     <td> <a href="/crackme/{{.HexId}}">{{.Name}}</a></td>
                     <td> <a href="/user/{{.Author}}">{{.Author}}</a> </td>
                     <td> {{.Lang}} </td>
-		    <td> {{printf "%02f" .Difficulty}} </td>
-		    <td> {{printf "%02f" .Quality}} </td>
-		    <td> {{.Platform}} </td>
-		    <td> {{.CreatedAt | PRETTYTIME}} </td>
+                    <td> {{printf "%.1f" .Difficulty}} </td>
+                    <td> {{printf "%.1f" .Quality}} </td>
+                    <td> {{.Platform}} </td>
+                    <td> {{.CreatedAt | PRETTYTIME}} </td>
                     <td> {{.NbSolutions}} </td>
                     <td> {{.NbComments}} </td>
 		</tr>
