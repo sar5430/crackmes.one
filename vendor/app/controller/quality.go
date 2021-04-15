@@ -38,6 +38,7 @@ func RateQualityPOST(w http.ResponseWriter, r *http.Request) {
     if ratingint < 1 || ratingint > 6 {
 		log.Println("Wrong rating number")
         Error500(w, r)
+	return
     }
 
 	already_exist, err = model.IsAlreadyRatedQuality(username, crackmehexid)
