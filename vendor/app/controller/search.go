@@ -33,13 +33,8 @@ func SearchPOST(w http.ResponseWriter, r *http.Request) {
 	lang := r.FormValue("lang")
 	platform := r.FormValue("platform")
 
-    if difficulty_min == "" || difficulty_max == "" {
-        difficulty_min_int = 1
-        difficulty_max_int = 6
-    } else {
         difficulty_min_int, _ = strconv.Atoi(difficulty_min)
         difficulty_max_int, _ = strconv.Atoi(difficulty_max)
-    }
 
 	crackmes, err := model.SearchCrackme(name, author, lang, platform, difficulty_min_int, difficulty_max_int)
 	if err != nil {
