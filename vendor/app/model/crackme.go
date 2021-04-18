@@ -91,7 +91,7 @@ func CrackmeSetFloat(hexid, champ string, nb float64) error {
 	return err
 }
 
-func SearchCrackme(name, author, lang, platform string, difficulty_min, difficulty_max int) ([]Crackme, error) {
+func SearchCrackme(name, author, lang, platform string, difficulty_min, difficulty_max, quality_min, quality_max int) ([]Crackme, error) {
 	var err error
 	var result []Crackme
 	if database.CheckConnection() {
@@ -106,6 +106,7 @@ func SearchCrackme(name, author, lang, platform string, difficulty_min, difficul
                 "name": bson.RegEx{name, "i"}, 
                 "lang": bson.RegEx{lang, "i"}, 
                 "difficulty": bson.M{"$gte": difficulty_min, "$lte": difficulty_max},
+                "quality": bson.M{"$gte": quality_min, "$lte": quality_max},
                 "author": bson.RegEx{author, "i"}, 
                 "visible": true, 
                 "platform": bson.RegEx{platform, "i"},

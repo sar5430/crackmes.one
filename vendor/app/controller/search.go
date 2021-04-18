@@ -23,6 +23,7 @@ func SearchGET(w http.ResponseWriter, r *http.Request) {
 
 func SearchPOST(w http.ResponseWriter, r *http.Request) {
     var difficulty_min_int, difficulty_max_int int
+    var quality_min_int, quality_max_int int
 
 	sess := session.Instance(r)
 
@@ -30,13 +31,17 @@ func SearchPOST(w http.ResponseWriter, r *http.Request) {
 	author := r.FormValue("author")
 	difficulty_min := r.FormValue("difficulty-min")
 	difficulty_max := r.FormValue("difficulty-max")
+	quality_min := r.FormValue("quality-min")
+	quality_max := r.FormValue("quality-max")
 	lang := r.FormValue("lang")
 	platform := r.FormValue("platform")
 
-        difficulty_min_int, _ = strconv.Atoi(difficulty_min)
-        difficulty_max_int, _ = strconv.Atoi(difficulty_max)
+    difficulty_min_int, _ = strconv.Atoi(difficulty_min)
+    difficulty_max_int, _ = strconv.Atoi(difficulty_max)
+    quality_min_int, _ = strconv.Atoi(quality_min)
+    quality_max_int, _ = strconv.Atoi(quality_max)
 
-	crackmes, err := model.SearchCrackme(name, author, lang, platform, difficulty_min_int, difficulty_max_int)
+	crackmes, err := model.SearchCrackme(name, author, lang, platform, difficulty_min_int, difficulty_max_int, quality_min_int, quality_max_int)
 	if err != nil {
                 log.Println(err)
                 Error500(w, r)
