@@ -3,35 +3,35 @@
 {{define "content"}}
 
 <div class="container grid-lg wrapper">
-        <div class="columns" style=" justify-content: center;">
-                <div class="column col-6 col-xs-12 panel-input">
-                    <form class="form-horizontal" method="post">
-                    <div class="form-group">
-                        <div class="col-4 col-sm-12">
+    <div class="columns" style=" justify-content: center;">
+        <div class="column col-6 col-xs-12 panel-input">
+            <form class="form-horizontal" method="post">
+                <div class="form-group">
+                    <div class="col-4 col-sm-12">
                         <label class="form-label" for="name">Username</label>
-                        </div>
-                        <div class="col-8 col-sm-12">
-                        <input class="form-input" type="text" id="name" name="name" placeholder="Name">
-                        </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-4 col-sm-12">
-                        <label class="form-label" for="input-example-5">Password</label>
-                        </div>
-                        <div class="col-8 col-sm-12">
-                        <input class="form-input" type="password" id="password" name="password" placeholder="password">
-                        </div>
-                    </div>	
-                    <input type="hidden" id="token" name="token" value="{{.token}}"> 
-                    <input type="submit" value="Login" class="btn active float-right">
-                    </form>
-                    <a href="/register">Register new account</a>
+                    <div class="col-8 col-sm-12">
+                        <input class="form-input" type="text" id="name" name="name" placeholder="Name">
+                    </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-4 col-sm-12">
+                        <label class="form-label" for="input-example-5">Password</label>
+                    </div>
+                    <div class="col-8 col-sm-12">
+                        <input class="form-input" type="password" id="password" name="password" placeholder="password">
+                    </div>
+                </div>	
+                <input type="hidden" id="token" name="token" value="{{.token}}"> 
+                <input type="submit" value="Login" class="btn active float-right">
+            </form>
+            <a href="/register">Register new account</a>
         </div>
+    </div>
 
 </div>
-		
-	{{template "footer" .}}
+
+{{template "footer" .}}
 
 {{end}}
 {{define "foot"}}{{end}}

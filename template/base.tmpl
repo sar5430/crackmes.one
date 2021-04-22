@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/static/css/spectre.min.css">
-    <link rel="stylesheet" href="/static/css/spectre-exp.min.css">
-    <link rel="stylesheet" href="/static/css/spectre-icons.min.css">
-    <link rel="stylesheet" href="/static/css/custom.css"> 
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
-   --> <title>Crackmes</title>
-    <style type="text/css">
-    </style>
-	{{template "head" .}}
-  </head>
-  <body>
-{{template "menu.tmpl" .}}
-{{range $fm := .flashes}}
-	<h3>{{.Message}}</h3>
-{{end}}
-{{template "content" .}}
-{{template "foot" .}}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="/static/css/spectre.min.css">
+        <link rel="stylesheet" href="/static/css/spectre-exp.min.css">
+        <link rel="stylesheet" href="/static/css/spectre-icons.min.css">
+        <link rel="stylesheet" href="/static/css/custom.css"> 
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+        --> <title>Crackmes</title>
+        <style type="text/css">
+        </style>
+        {{template "head" .}}
+    </head>
+    <body>
+        {{template "menu.tmpl" .}}
+        {{range $fm := .flashes}}
+        <h3>{{.Message}}</h3>
+        {{end}}
+        {{template "content" .}}
+        {{template "foot" .}}
 
-  </body>
+    </body>
 </html>

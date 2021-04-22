@@ -2,17 +2,17 @@
 {{define "head"}}{{end}}
 {{define "content"}}
 <script language="javascript" type="text/javascript">
-        function changeTab1(id1, id2, id3) {
-            document.getElementById(id3).style.display = 'none';
-            document.getElementById(id2).style.display = 'none';
-            document.getElementById(id1).style.display = 'block';
-        }
+    function changeTab1(id1, id2, id3) {
+        document.getElementById(id3).style.display = 'none';
+        document.getElementById(id2).style.display = 'none';
+        document.getElementById(id1).style.display = 'block';
+    }
 </script>
-    <div class="container grid-lg wrapper">
-        <h3><a href="">{{.username}}</a>'s profile</h3>
-        <div class="columns col-12 ">
-            <div class="column col-4">
-                <div class="column col-12 panel-background">
+<div class="container grid-lg wrapper">
+    <h3><a href="">{{.username}}</a>'s profile</h3>
+    <div class="columns col-12 ">
+        <div class="column col-4">
+            <div class="column col-12 panel-background">
                 <p>Number of crackmes: </p>
                 <h2 class="text-center"> {{.NbCrackmes}}</h2><br>
             </div>
@@ -23,8 +23,8 @@
                 <h2 class="text-center"> {{.NbSolutions}}</h2><br>
             </div>
         </div>
-            <div class="column col-4">
-                <div class="column col-12 panel-background">
+        <div class="column col-4">
+            <div class="column col-12 panel-background">
                 <p>Comments:  </p>
                 <h2 class="text-center"> {{.NbComments}}</h2><br>
             </div>
@@ -32,92 +32,92 @@
     </div><br>
     <div class="container grid-lg wrapper panel-background">
         <div class="column col-4" style="margin-bottom:20px;">
-                <ul class="tab tab-block" style="border-bottom: .05rem solid transparent;">
-                    <li class="tab-item">
-                        <a onclick="changeTab1('crackmes', 'comments', 'solutions')">Crackmes</a>
-                    </li>
-                    <li class="tab-item">
-                        <a onclick="changeTab1('solutions', 'comments', 'crackmes')">Solutions</a>
-                    </li>
-                    <li class="tab-item">
-                        <a onclick="changeTab1('comments', 'solutions', 'crackmes')">Comments</a>
-                    </li>
-                </ul>
-	   </div>
+            <ul class="tab tab-block" style="border-bottom: .05rem solid transparent;">
+                <li class="tab-item">
+                    <a onclick="changeTab1('crackmes', 'comments', 'solutions')">Crackmes</a>
+                </li>
+                <li class="tab-item">
+                    <a onclick="changeTab1('solutions', 'comments', 'crackmes')">Solutions</a>
+                </li>
+                <li class="tab-item">
+                    <a onclick="changeTab1('comments', 'solutions', 'crackmes')">Comments</a>
+                </li>
+            </ul>
+        </div>
         <div class="divider"></div>
         <div class="columns col-12" id="crackmes">
-        <h3>Crackmes</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr style="text-align: center;">
-                    <th style="width: 150px;">Name</th>
-                    <th style="width: 150px;">Author</th>
-                    <th style="width: 100px;">Language</th>
-                    <th style="width: 70px;">Difficulty</th>
-                    <th style="width: 70px;">Date</th>
-                    <th style="width: 50px;">Solution</th>
-                    <th style="width: 50px;">Comments</th>
-                </tr>
-            </thead>
-            <tbody id="content-list">
-		{{range $n := .crackmes}}
-                <tr class="text-center">
-                    <td> <a href="/crackme/{{.HexId}}">{{.Name}}</a></td>
-                    <td> <a href="">{{.Author}}</a> </td>
-                    <td> {{.Lang}} </td>
-                    <td> {{.Difficulty}} </td>
-                    <td> {{.CreatedAt | PRETTYTIME}} </td>
-                    <td> {{.NbSolutions}} </td>
-                    <td> {{.NbComments}} </td>
-                </tr> 
-		{{end}}
-            </tbody>
-        </table>
-      </div>
-
-      
-        <div class="columns col-12" id="solutions" style="display: none">
-        <h3>Latest solutions</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr style="text-align: center;">
-                    <th style="width: 320px;">Crackme</th>
-                    <th style="width: 320px;">Infos</th>
-                </tr>
-            </thead>
-            <tbody id="content-list">
-		        {{range $n := .solutions}}
-                <tr class="text-center">
-                    <td><a href="/crackme/{{.Crackmeshexid}}">{{.Crackmename}}</a></td>
-                    <td> <span style="white-space: pre-line">{{.Solution.Info}}</span></td>
-                </tr> 
-		        {{end}}
-            </tbody>
-        </table>
-      </div>
-      
-        <div class="columns col-12 " id="comments" style="display: none">
-        <h3>Latest comments</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr style="text-align: center;">
-                    <th style="width: 590px;">Comment</th>
-                    <th style="width: 50px;">Link</th>
-                </tr>
-            </thead>
-            <tbody id="content-list">
-		        {{range $n := .comments}}
-                <tr class="text-center">
-                    <td> <span style="white-space: pre-line">{{.Content}}</span> </td>
-                    <td> <a href="/crackme/{{.CrackMeHexId}}">==></a> </td>
-                </tr> 
-		        {{end}}
-            </tbody>
-        </table>
+            <h3>Crackmes</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th style="width: 150px;">Name</th>
+                        <th style="width: 150px;">Author</th>
+                        <th style="width: 100px;">Language</th>
+                        <th style="width: 70px;">Difficulty</th>
+                        <th style="width: 70px;">Date</th>
+                        <th style="width: 50px;">Solution</th>
+                        <th style="width: 50px;">Comments</th>
+                    </tr>
+                </thead>
+                <tbody id="content-list">
+                    {{range $n := .crackmes}}
+                    <tr class="text-center">
+                        <td> <a href="/crackme/{{.HexId}}">{{.Name}}</a></td>
+                        <td> <a href="">{{.Author}}</a> </td>
+                        <td> {{.Lang}} </td>
+                        <td> {{.Difficulty}} </td>
+                        <td> {{.CreatedAt | PRETTYTIME}} </td>
+                        <td> {{.NbSolutions}} </td>
+                        <td> {{.NbComments}} </td>
+                    </tr> 
+                    {{end}}
+                </tbody>
+            </table>
         </div>
-      </div><br/>
+
+
+        <div class="columns col-12" id="solutions" style="display: none">
+            <h3>Latest solutions</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th style="width: 320px;">Crackme</th>
+                        <th style="width: 320px;">Infos</th>
+                    </tr>
+                </thead>
+                <tbody id="content-list">
+                    {{range $n := .solutions}}
+                    <tr class="text-center">
+                        <td><a href="/crackme/{{.Crackmeshexid}}">{{.Crackmename}}</a></td>
+                        <td> <span style="white-space: pre-line">{{.Solution.Info}}</span></td>
+                    </tr> 
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="columns col-12 " id="comments" style="display: none">
+            <h3>Latest comments</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th style="width: 590px;">Comment</th>
+                        <th style="width: 50px;">Link</th>
+                    </tr>
+                </thead>
+                <tbody id="content-list">
+                    {{range $n := .comments}}
+                    <tr class="text-center">
+                        <td> <span style="white-space: pre-line">{{.Content}}</span> </td>
+                        <td> <a href="/crackme/{{.CrackMeHexId}}">==></a> </td>
+                    </tr> 
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+    </div><br/>
 </div>
-	
-	{{template "footer" .}}
+
+{{template "footer" .}}
 {{end}}
 {{define "foot"}}{{end}}

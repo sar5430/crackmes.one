@@ -2,29 +2,29 @@
 {{define "head"}}{{end}}
 {{define "content"}}
 <div class="container grid-lg wrapper">
-        <h3>Welcome!</h3>
-        <p>This is a simple place where you can download crackmes to improve your reverse engineering skills. If you want to submit a crackme or a solution to one of them, you must register. But before that, I strongly recommend you to read the <a href="/faq">FAQ</a>. If you have any kind of question regarding the website, a crackme, feel free to join the <a href="https://discord.gg/2pPV3yq">discord chat</a>.</p>
-        <div class="columns">
-          <div class="column col-4">
-              <div class="column col-12 panel-background">
-              <p>Number of users: </p>
-              <h2 class="text-center"> {{.nbusers}}</h2><br>
+    <h3>Welcome!</h3>
+    <p>This is a simple place where you can download crackmes to improve your reverse engineering skills. If you want to submit a crackme or a solution to one of them, you must register. But before that, I strongly recommend you to read the <a href="/faq">FAQ</a>. If you have any kind of question regarding the website, a crackme, feel free to join the <a href="https://discord.gg/2pPV3yq">discord chat</a>.</p>
+    <div class="columns">
+        <div class="column col-4">
+            <div class="column col-12 panel-background">
+                <p>Number of users: </p>
+                <h2 class="text-center"> {{.nbusers}}</h2><br>
             </div>
-          </div>
-          <div class="column col-4">
-              <div class="column col-12 panel-background">
+        </div>
+        <div class="column col-4">
+            <div class="column col-12 panel-background">
                 <p>Number of crackmes: </p>
                 <h2 class="text-center"> {{.nbcrackmes}}</h2><br>
-              </div>
-          </div>
-          <div class="column col-4">
-              <div class="column col-12 panel-background">
+            </div>
+        </div>
+        <div class="column col-4">
+            <div class="column col-12 panel-background">
                 <p>Number of solutions:  </p>
                 <h2 class="text-center"> {{.nbsolutions}}</h2><br>
-              </div>
-          </div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>
-	{{template "footer" .}}
+{{template "footer" .}}
 {{end}}
 {{define "foot"}}{{end}}
