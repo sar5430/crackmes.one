@@ -232,6 +232,7 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         log.Println(err)
         Error500(w, r)
+        return
     }
 
     crackme, err := model.CrackmeByUserAndName(username, name, false)
@@ -239,6 +240,7 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         log.Println(err)
         Error500(w, r)
+        return
     }
 
     err = model.RatingDifficultyCreate(username, crackme.HexId, diffint)
@@ -246,6 +248,7 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         log.Println(err)
         Error500(w, r)
+        return
     }
 
     err = model.RatingQualityCreate(username, crackme.HexId, 4)
@@ -253,6 +256,7 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         log.Println(err)
         Error500(w, r)
+        return
     }
 
     filename := path.Join("./tmp/crackme/" + username + "+++" + crackme.HexId + "+++" + header.Filename)
