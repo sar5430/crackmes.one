@@ -106,6 +106,19 @@ func UploadSolutionPOST(w http.ResponseWriter, r *http.Request) {
         return
     }
 
+    // Submitting a solution for your own crackme looks valid... Kinda weird, but ok.
+    //  Send notif in that case too, because approval.
+    // If these fail, the user shouldn't see an error, because the part he cares about succeeded.
+    crackme, err2 := model.CrackmeByHexId(hexidcrackme)
+    if err2 == nil {
+        err2 = model.NotificationAdd(username, "Your solution for '" + crackme.Name + "' is waiting approval!")
+        if err2 != nil {
+            log.Println(err2)
+        }
+    } else {
+        log.Println(err2)
+    }
+
     if err != nil {
         log.Println(err)
         sess.AddFlash(view.Flash{"An error occurred on the server. Please try again later.", view.FlashError})

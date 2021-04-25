@@ -1,5 +1,6 @@
 import sys
 import os
+import datetime
 from subprocess import call
 from pymongo import MongoClient
 
@@ -7,6 +8,10 @@ type_object = sys.argv[1]
 file_loc = sys.argv[2]
 
 [username, hexid, filename] = file_loc.split('+++')
+send_notif = True
+rej_reason = None
+if send_notif and len(sys.argv) >= 4:
+    rej_reason = sys.argv[3]
 
 client = MongoClient('127.0.0.1')
 db = client.crackmesone
@@ -42,3 +47,19 @@ if type_object == "crackme":
 
 call(["rm", file_loc])
 print("[+] rm " + file_loc)
+
+if send_notif:
+    print("[+] Sending " + type_object + " rejection notification!")
+    notif_coll = db.notifications
+    author_name = db_object["author"]
+    if type_object == "solution":
+        crackme_obj = db.crackme.find_one({'_id': db_object["crackmeid"]})
+        notif_text = "Your solution for '" + crackme_obj["name"] + "' has been rejected!"
+        if rej_reason is not None:
+            notif_text += " Reason: " + rej_reason
+        notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, "text": notif_text})
+    elif type_object == "crackme":
+        notif_text = "Your crackme '" + db_object["name"] + "' has been rejected!"
+        if rej_reason is not None:
+            notif_text += " Reason: " + rej_reason
+        notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, "text": notif_text})

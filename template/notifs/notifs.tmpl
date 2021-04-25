@@ -1,0 +1,13 @@
+{{define "title"}}Notifications{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+<div class="container grid-lg wrapper">
+    <div class="page-header">
+        {{range .notifs}}
+            <p>Text: {{.Text}}</p>
+        {{end}}
+    </div>
+</div>
+{{template "footer" .}}
+{{end}}
+{{define "foot"}}{{end}}

@@ -1,11 +1,13 @@
 import sys
 import os
+import datetime
 from subprocess import call
 from pymongo import MongoClient
 
 type_object = sys.argv[1]
 file_loc = sys.argv[2]
 [username, hexid, filename] = file_loc.split('+++')
+send_notif = True
 
 client = MongoClient('127.0.0.1')
 db = client.crackmesone
@@ -41,3 +43,17 @@ print("[+] zip -j --password crackmes.one /home/crackmesone/go/src/github.com/5t
 call(["rm", filename])
 print("[+] rm " + filename)
 
+if send_notif:
+    print("[+] Sending " + type_object + " approval notification!")
+    notif_coll = db.notifications
+    author_name = db_object["author"]
+    if type_object == "solution":
+        crackme_obj = db.crackme.find_one({'_id': db_object["crackmeid"]})
+        notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, \
+                "text": "Your solution for '" + crackme_obj["name"] + "' has been accepted!"})
+        notif_coll.insert_one({"user": crackme_obj["author"], "time": datetime.datetime.utcnow(), "seen": False, \
+                "text": "A new solution for your crackme '" + crackme_obj["name"] \
+                + "' has been submitted by: " + author_name})
+    elif type_object == "crackme":
+        notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, \
+                "text": "Your crackme '" + db_object["name"] + "' has been accepted!"})

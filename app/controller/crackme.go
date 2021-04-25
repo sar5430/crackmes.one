@@ -266,6 +266,12 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
         return
     }
 
+    notifErr := model.NotificationAdd(username, "Crackme '" + crackme.Name + "' added, waiting for approval!")
+    if notifErr != nil {
+        // I don't think a notification failure warrants a 500 response.
+        log.Println(notifErr)
+    }
+
     if err != nil {
         log.Println(err)
         sess.AddFlash(view.Flash{"An error occurred on the server. Please try again later.", view.FlashError})

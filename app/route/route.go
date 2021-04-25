@@ -81,6 +81,9 @@ func routes() *httprouter.Router {
     /*r.GET("/users", hr.Handler(alice.
     New().
     ThenFunc(controller.UsersGET)))*/
+    r.GET("/notifications", hr.Handler(alice.
+    New(acl.DisallowAnon).
+    ThenFunc(controller.NotificationsGET)))
 
     // Search
     r.GET("/search", hr.Handler(alice.
