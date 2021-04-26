@@ -2,12 +2,36 @@
 {{define "head"}}{{end}}
 {{define "content"}}
 <div class="container grid-lg wrapper">
-    <div class="page-header">
-        {{range .notifs}}
-            <p>Text: {{.Text}}</p>
-        {{end}}
-    </div>
+    {{range .notifs}}
+        <div data-id="{{.HexId}}" class="text-center notif-item s-rounded{{if not .Seen}} active{{end}}">
+            <span>{{.Text}}</span>
+            <i class="icon icon-cross"></i>
+        </div>
+    {{end}}
 </div>
+<script>
+let xIcons = document.querySelectorAll('.notif-item .icon-cross');
+for (const x of xIcons) {
+    x.addEventListener('click', (e) => {
+        let xmlh = new XMLHttpRequest();
+        let par = e.target.closest('.notif-item');
+        let notifId = par.dataset.id;
+        xmlh.onreadystatechange = () => {
+            if (xmlh.readyState === XMLHttpRequest.DONE) {
+                if (xmlh.status == 200) {
+                    par.remove();
+                } else {
+                    console.log(' ):  Notification deletion failed.');
+                }
+            }
+        };
+        xmlh.open('POST', '/notifications/delete', true);
+        xmlh.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xmlh.send('hexid=' + notifId + '&token=' + encodeURI('{{.token}}'));
+        e.stopPropagation();
+    });
+}
+</script>
 {{template "footer" .}}
 {{end}}
 {{define "foot"}}{{end}}

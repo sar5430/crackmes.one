@@ -57,9 +57,11 @@ if send_notif:
         notif_text = "Your solution for '" + crackme_obj["name"] + "' has been rejected!"
         if rej_reason is not None:
             notif_text += " Reason: " + rej_reason
-        notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, "text": notif_text})
+        ins_id = notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, "text": notif_text}).inserted_id
     elif type_object == "crackme":
         notif_text = "Your crackme '" + db_object["name"] + "' has been rejected!"
         if rej_reason is not None:
             notif_text += " Reason: " + rej_reason
-        notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, "text": notif_text})
+        ins_id = notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, "text": notif_text}).inserted_id
+    # Set HexId here
+    notif_coll.find_one_and_update({'_id': ins_id}, {'$set': {'hexid': str(ins_id)}})

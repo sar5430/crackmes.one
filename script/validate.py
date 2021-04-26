@@ -49,11 +49,15 @@ if send_notif:
     author_name = db_object["author"]
     if type_object == "solution":
         crackme_obj = db.crackme.find_one({'_id': db_object["crackmeid"]})
-        notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, \
-                "text": "Your solution for '" + crackme_obj["name"] + "' has been accepted!"})
-        notif_coll.insert_one({"user": crackme_obj["author"], "time": datetime.datetime.utcnow(), "seen": False, \
+        ins_id = notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, \
+                "text": "Your solution for '" + crackme_obj["name"] + "' has been accepted!"}).inserted_id
+        # Set HexId here too for this case
+        notif_coll.find_one_and_update({'_id': ins_id}, {'$set': {'hexid': str(ins_id)}})
+        ins_id = notif_coll.insert_one({"user": crackme_obj["author"], "time": datetime.datetime.utcnow(), "seen": False, \
                 "text": "A new solution for your crackme '" + crackme_obj["name"] \
-                + "' has been submitted by: " + author_name})
+                + "' has been submitted by: " + author_name}).inserted_id
     elif type_object == "crackme":
-        notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, \
-                "text": "Your crackme '" + db_object["name"] + "' has been accepted!"})
+        ins_id = notif_coll.insert_one({"user": author_name, "time": datetime.datetime.utcnow(), "seen": False, \
+                "text": "Your crackme '" + db_object["name"] + "' has been accepted!"}).inserted_id
+    # Set HexId here
+    notif_coll.find_one_and_update({'_id': ins_id}, {'$set': {'hexid': str(ins_id)}})
