@@ -1,11 +1,33 @@
 {{define "title"}}Notifications{{end}}
 {{define "head"}}{{end}}
 {{define "content"}}
+{{$lastTime := .startTime}}
+{{$newDay := true}}
 <div class="container grid-lg wrapper">
     {{range .notifs}}
+        {{if TIMECOMPARE $lastTime .Time 86400}}
+            {{if not $newDay}} {{/* Close notif-day-container here, this wont happen on 1st iter */}}
+                </div>
+            {{end}}
+            {{$lastTime = .Time}}
+            {{$newDay = true}}
+        {{end}}
+        {{if $newDay}}
+            <div class="notif-day-container">
+            <div class="notif-divider divider text-center" data-content='{{PRETTYTIMEFORMAT .Time "Jan 2"}}'></div>
+            {{$newDay = false}}
+        {{end}}
         <div data-id="{{.HexId}}" class="text-center notif-item s-rounded{{if not .Seen}} active{{end}}">
             <span>{{.Text}}</span>
             <i class="icon icon-cross"></i>
+        </div>
+    {{end}}
+    {{if not $newDay}} {{/* Close notif-day-container here, if there were loops */}}
+        </div>
+    {{else}} {{/* If we are here, there aren't any notifications */}}
+        <div class="empty">
+            <div class="empty-icon"><i class="icon icon-message"></i></div>
+            <p class="empty-title-h5">No notifications</p>
         </div>
     {{end}}
 </div>

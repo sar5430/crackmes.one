@@ -4,12 +4,11 @@ import (
     "app/model"
     "log"
     "net/http"
+    "time"
 
     "app/shared/session"
     "app/shared/view"
     "github.com/josephspurrier/csrfbanana"
-
-    //"github.com/gorilla/sessions"
 )
 
 func NotificationsGET(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +23,6 @@ func NotificationsGET(w http.ResponseWriter, r *http.Request) {
 
     for i, _ := range notifs {
         if !notifs[i].Seen {
-            log.Println("settng seens to true")
             model.NotificationsSetSeen(notifs)
             break
         }
@@ -35,6 +33,7 @@ func NotificationsGET(w http.ResponseWriter, r *http.Request) {
     v.Name = "notifs/notifs"
     v.Vars["notifs"] = notifs
     v.Vars["token"] = csrfbanana.TokenWithPath(w, r, sess, "/notifications/delete")
+    v.Vars["startTime"] = time.Unix(0, 0)
     v.Render(w)
 }
 

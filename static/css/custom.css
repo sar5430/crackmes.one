@@ -209,6 +209,9 @@ tbody tr:first-child td .tile .tile-content:before {
 }
 
 /* NOTIFS */
+.notif-divider.divider-vert[data-content]::after, .notif-divider.divider[data-content]::after, .empty {
+	background: rgb(39, 39, 39);
+}
 
 .notif-item {
     border: 1px solid #a0cc28;
@@ -223,4 +226,12 @@ tbody tr:first-child td .tile .tile-content:before {
 
 .notif-item .icon-cross {
     float: right;
+}
+
+.notif-day-container {
+    margin-bottom: 35px;
+}
+
+.empty {
+    color: #9acc14;
 }
