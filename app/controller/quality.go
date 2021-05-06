@@ -1,9 +1,9 @@
 package controller
 
 import (
-    "app/model"
-    "app/shared/session"
-    "app/shared/view"
+    "github.com/sar5430/crackmes.one/app/model"
+    "github.com/sar5430/crackmes.one/app/shared/session"
+    "github.com/sar5430/crackmes.one/app/shared/view"
     "fmt"
     "log"
     "net/http"

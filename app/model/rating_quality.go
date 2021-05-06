@@ -1,7 +1,7 @@
 package model
 
 import (
-    "app/shared/database"
+    "github.com/sar5430/crackmes.one/app/shared/database"
     "time"
 
     "gopkg.in/mgo.v2/bson"

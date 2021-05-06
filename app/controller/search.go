@@ -4,10 +4,10 @@ import (
     "log"
     "strconv"
     "net/http"
-    "app/model"
+    "github.com/sar5430/crackmes.one/app/model"
     "github.com/josephspurrier/csrfbanana"
-    "app/shared/view"
-    "app/shared/session"
+    "github.com/sar5430/crackmes.one/app/shared/view"
+    "github.com/sar5430/crackmes.one/app/shared/session"
 )
 
 // AboutGET displays the About page

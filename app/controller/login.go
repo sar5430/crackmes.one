@@ -5,10 +5,10 @@ import (
     "log"
     "net/http"
 
-    "app/model"
-    "app/shared/passhash"
-    "app/shared/session"
-    "app/shared/view"
+    "github.com/sar5430/crackmes.one/app/model"
+    "github.com/sar5430/crackmes.one/app/shared/passhash"
+    "github.com/sar5430/crackmes.one/app/shared/session"
+    "github.com/sar5430/crackmes.one/app/shared/view"
 
     "github.com/gorilla/sessions"
     "github.com/josephspurrier/csrfbanana"

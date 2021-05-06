@@ -3,12 +3,12 @@ package route
 import (
     "net/http"
 
-    "app/controller"
-    "app/route/middleware/acl"
-    hr "app/route/middleware/httprouterwrapper"
-    "app/route/middleware/logrequest"
-    "app/route/middleware/pprofhandler"
-    "app/shared/session"
+    "github.com/sar5430/crackmes.one/app/controller"
+    "github.com/sar5430/crackmes.one/app/route/middleware/acl"
+    hr "github.com/sar5430/crackmes.one/app/route/middleware/httprouterwrapper"
+    "github.com/sar5430/crackmes.one/app/route/middleware/logrequest"
+    "github.com/sar5430/crackmes.one/app/route/middleware/pprofhandler"
+    "github.com/sar5430/crackmes.one/app/shared/session"
 
     "github.com/gorilla/context"
     "github.com/josephspurrier/csrfbanana"

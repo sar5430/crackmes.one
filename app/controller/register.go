@@ -3,11 +3,11 @@ package controller
 import (
     "log"
     "net/http"
-    "app/model"
-    "app/shared/passhash"
-    "app/shared/recaptcha"
-    "app/shared/session"
-    "app/shared/view"
+    "github.com/sar5430/crackmes.one/app/model"
+    "github.com/sar5430/crackmes.one/app/shared/passhash"
+    "github.com/sar5430/crackmes.one/app/shared/recaptcha"
+    "github.com/sar5430/crackmes.one/app/shared/session"
+    "github.com/sar5430/crackmes.one/app/shared/view"
     "github.com/josephspurrier/csrfbanana"
 )
 

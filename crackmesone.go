@@ -6,15 +6,15 @@ import (
 	"os"
 	"runtime"
 
-	"app/route"
-	"app/shared/database"
-	"app/shared/email"
-	"app/shared/jsonconfig"
-	"app/shared/recaptcha"
-	"app/shared/server"
-	"app/shared/session"
-	"app/shared/view"
-	"app/shared/view/plugin"
+	"github.com/sar5430/crackmes.one/app/route"
+	"github.com/sar5430/crackmes.one/app/shared/database"
+	"github.com/sar5430/crackmes.one/app/shared/email"
+	"github.com/sar5430/crackmes.one/app/shared/jsonconfig"
+	"github.com/sar5430/crackmes.one/app/shared/recaptcha"
+	"github.com/sar5430/crackmes.one/app/shared/server"
+	"github.com/sar5430/crackmes.one/app/shared/session"
+	"github.com/sar5430/crackmes.one/app/shared/view"
+	"github.com/sar5430/crackmes.one/app/shared/view/plugin"
 )
 
 // *****************************************************************************

@@ -1,7 +1,7 @@
 package controller
 
 import (
-    "app/model"
+    "github.com/sar5430/crackmes.one/app/model"
     "encoding/xml"
     "log"
     "net/http"

@@ -4,8 +4,8 @@ import (
     "fmt"
     "log"
     "net/http"
-    "app/shared/view"
-    "app/model"
+    "github.com/sar5430/crackmes.one/app/shared/view"
+    "github.com/sar5430/crackmes.one/app/model"
 )
 
 // IndexGET displays the home page
