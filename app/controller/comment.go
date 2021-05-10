@@ -46,6 +46,21 @@ func LeaveCommentPOST(w http.ResponseWriter, r *http.Request) {
 
     if err != nil {
         log.Println(err)
+        sess.AddFlash(view.Flash{"Comment creation failed. Please try again later.", view.FlashError})
+        sess.Save(r, w)
+        CrackMeGET(w, r)
+        return
+    }
+
+    crackme, err := model.CrackmeByHexId(crackmehexid)
+    if err == nil && crackme.Author != username {
+        err = model.NotificationAdd(crackme.Author, "New comment on your crackme '" +
+                crackme.Name + "' by: " + username)
+        if err != nil {
+            log.Println(err)
+        }
+    } else {
+        log.Println(err)
     }
 
     sess.AddFlash(view.Flash{"Comment uploaded!", view.FlashSuccess})

@@ -82,6 +82,14 @@ func routes() *httprouter.Router {
     New().
     ThenFunc(controller.UsersGET)))*/
 
+    // Notifications
+    r.GET("/notifications", hr.Handler(alice.
+    New(acl.DisallowAnon).
+    ThenFunc(controller.NotificationsGET)))
+    r.POST("/notifications/delete", hr.Handler(alice.
+    New(acl.DisallowAnon).
+    ThenFunc(controller.NotificationsDeletePOST)))
+
     // Search
     r.GET("/search", hr.Handler(alice.
     New().

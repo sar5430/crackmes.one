@@ -207,3 +207,31 @@ tbody tr:first-child td .tile .tile-content:before {
 .modal-container {
     background: #383838;
 }
+
+/* NOTIFS */
+.notif-divider.divider-vert[data-content]::after, .notif-divider.divider[data-content]::after, .empty {
+	background: rgb(39, 39, 39);
+}
+
+.notif-item {
+    border: 1px solid #a0cc28;
+    padding: 10px 4px;
+    margin: 10px 0;
+    border-radius: 6px;
+}
+
+.notif-item.active {
+    background-color: #3b512073;
+}
+
+.notif-item .icon-cross {
+    float: right;
+}
+
+.notif-day-container {
+    margin-bottom: 35px;
+}
+
+.empty {
+    color: #9acc14;
+}

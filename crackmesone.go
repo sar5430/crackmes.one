@@ -49,6 +49,7 @@ func main() {
 		plugin.TagHelper(config.View),
 		plugin.NoEscape(),
 		plugin.PrettyTime(),
+		plugin.TimeCompare(),
 		recaptcha.Plugin())
 
 	// Start the listener
