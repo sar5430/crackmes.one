@@ -1,7 +1,6 @@
 package controller
 
 import (
-    "fmt"
     "log"
     "net/http"
     "github.com/sar5430/crackmes.one/app/shared/view"
@@ -37,8 +36,8 @@ func IndexGET(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    v.Vars["nbusers"] = fmt.Sprintf("0x%x", nbusers)
-    v.Vars["nbsolutions"] = fmt.Sprintf("0x%x",nbsolutions)
-    v.Vars["nbcrackmes"] = fmt.Sprintf("0x%x",nbcrackmes)
+    v.Vars["nbusers"] = nbusers
+    v.Vars["nbsolutions"] = nbsolutions
+    v.Vars["nbcrackmes"] = nbcrackmes
     v.Render(w)
 }
