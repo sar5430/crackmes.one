@@ -28,10 +28,10 @@ func LoadHTTPS() http.Handler {
 
 // LoadHTTP returns the HTTPS routes and middleware
 func LoadHTTP() http.Handler {
-    return middleware(routes())
+    //return middleware(routes())
 
     // Uncomment this and comment out the line above to always redirect to HTTPS
-    //return http.HandlerFunc(redirectToHTTPS)
+    return http.HandlerFunc(redirectToHTTPS)
 }
 
 // Optional method to make it easy to redirect from HTTP to HTTPS

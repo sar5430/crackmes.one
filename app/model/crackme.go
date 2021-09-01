@@ -36,7 +36,7 @@ func CountCrackmes() (int, error) {
         session := database.Mongo.Copy()
         defer session.Close()
         c := session.DB(database.ReadConfig().MongoDB.Database).C("crackme")
-        nb, err = c.Count()
+        nb, err = c.Find(bson.M{"visible": true}).Count()
     } else {
         err = ErrUnavailable
     }
