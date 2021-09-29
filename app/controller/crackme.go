@@ -84,6 +84,7 @@ func CrackMeGET(w http.ResponseWriter, r *http.Request) {
     v.Vars["name"] = crackme.Name
     v.Vars["hexid"] = crackme.HexId
     v.Vars["lang"] = crackme.Lang
+    v.Vars["arch"] = crackme.Arch
     v.Vars["createdat"] = crackme.CreatedAt
     v.Vars["username"] = crackme.Author
     v.Vars["platform"] = crackme.Platform
@@ -178,6 +179,7 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
     username := fmt.Sprintf("%s", sess.Values["name"])
     name := r.FormValue("name")
     lang := r.FormValue("lang")
+    arch := r.FormValue("arch")
     difficulty := r.FormValue("difficulty")
     info := r.FormValue("info")
     platform := r.FormValue("platform")
@@ -185,6 +187,7 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
 
     name = sanitize.HTML(name)
     lang = sanitize.HTML(lang)
+    arch = sanitize.HTML(arch)
     info = sanitize.HTML(info)
 
     diffint, _ := strconv.Atoi(difficulty)
@@ -227,7 +230,7 @@ func UploadCrackMePOST(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    err = model.CrackmeCreate(name, info, username, lang, platform)
+    err = model.CrackmeCreate(name, info, username, lang, arch, platform)
 
     if err != nil {
         log.Println(err)

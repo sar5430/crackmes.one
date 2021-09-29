@@ -18,6 +18,7 @@ type Crackme struct {
     Name        string        `bson:"name,omitempty"`
     Info        string        `bson:"info,omitempty"`
     Lang        string        `bson:"lang,omitempty"`
+    Arch        string        `bson:"arch,omitempty"`
     Author      string        `bson:"author,omitempty"`
     CreatedAt   time.Time     `bson:"created_at"`
     Visible     bool          `bson:"visible"`
@@ -91,7 +92,7 @@ func CrackmeSetFloat(hexid, champ string, nb float64) error {
     return err
 }
 
-func SearchCrackme(name, author, lang, platform string, difficulty_min, difficulty_max, quality_min, quality_max int) ([]Crackme, error) {
+func SearchCrackme(name, author, lang, arch, platform string, difficulty_min, difficulty_max, quality_min, quality_max int) ([]Crackme, error) {
     var err error
     var result []Crackme
     if database.CheckConnection() {
@@ -105,6 +106,7 @@ func SearchCrackme(name, author, lang, platform string, difficulty_min, difficul
             bson.M{
                 "name": bson.RegEx{name, "i"}, 
                 "lang": bson.RegEx{lang, "i"}, 
+                "arch": bson.RegEx{arch, "i"}, 
                 "difficulty": bson.M{"$gte": difficulty_min, "$lte": difficulty_max},
                 "quality": bson.M{"$gte": quality_min, "$lte": quality_max},
                 "author": bson.RegEx{author, "i"}, 
@@ -190,7 +192,7 @@ func SearchCrackme(name, author, lang, platform string, difficulty_min, difficul
     }
 
     // NoteCreate creates a note
-    func CrackmeCreate(name, info, username, lang, platform string) error {
+    func CrackmeCreate(name, info, username, lang, arch, platform string) error {
         var err error
 
         if database.CheckConnection() {
@@ -204,6 +206,7 @@ func SearchCrackme(name, author, lang, platform string, difficulty_min, difficul
                 Name:       name,
                 Info:       info,
                 Lang:       lang,
+                Arch:       arch,
                 Author:     username,
                 CreatedAt:  time.Now(),
                 Visible:    false,

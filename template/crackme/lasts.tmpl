@@ -11,6 +11,7 @@
                 <th style="width: 20%;">Name</th>
                 <th style="width: 20%;">Author</th>
                 <th style="width: 9%;">Language</th>
+                <th style="width: 9%;">Arch</th>
                 <th style="width: 4%;">Difficulty</th>
                 <th style="width: 4%;">Quality</th>
                 <th style="width: 9%;">Platform</th>
@@ -25,6 +26,7 @@
                 <td> <a href="/crackme/{{.HexId}}">{{.Name}}</a></td>
                 <td> <a href="/user/{{.Author}}">{{.Author}}</a> </td>
                 <td> {{.Lang}} </td>
+                <td> {{.Arch}} </td>
                 <td> {{printf "%.1f" .Difficulty}} </td>
                 <td> {{printf "%.1f" .Quality}} </td>
                 <td> {{.Platform}} </td>
