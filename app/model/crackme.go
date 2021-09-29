@@ -52,7 +52,7 @@ func CountCrackmesByUser(username string) (int, error) {
         session := database.Mongo.Copy()
         defer session.Close()
         c := session.DB(database.ReadConfig().MongoDB.Database).C("crackme")
-        nb, err = c.Find(bson.M{"author": username}).Count()
+        nb, err = c.Find(bson.M{"author": username, "visible": true}).Count()
     } else {
         err = ErrUnavailable
     }
