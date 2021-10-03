@@ -8,7 +8,7 @@ This website was created using the [GoWebApp](https://github.com/josephspurrier/
 The really famous guy [Bonclay](https://twitter.com/mpgn_x64) from my team [Quokkalight](https://quokkalight.ninja) made this cool design.
 
 ## Setup for local developement.
-* Install `mongodb` for your choice of distrobution.
+* Install `mongodb` for your choice of distribution.
 * Download the source code with go. `go get github.com/sar5430/crackmes.one`. If you forked it, download it from yourself.
 * `cd go/src/github.com/0xstan/crackmes.one/`
 * Modify the file app/route/route.go, uncomment 
