@@ -10,7 +10,7 @@ The really famous guy [Bonclay](https://twitter.com/mpgn_x64) from my team [Quok
 ## Setup for local developement.
 * Install `mongodb` for your choice of distrobution.
 * Download the source code with go. `go get github.com/sar5430/crackmes.one`. If you forked it, download it from yourself.
-* `cd go/src/github.com/0xstan/crackmes.one/`
+* `cd go/src/github.com/sar5430/crackmes.one/`
 * Modify the file app/route/route.go, uncomment 
 ```
 //return middleware(routes())
