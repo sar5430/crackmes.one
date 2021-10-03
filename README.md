@@ -8,22 +8,66 @@ This website was created using the [GoWebApp](https://github.com/josephspurrier/
 The really famous guy [Bonclay](https://twitter.com/mpgn_x64) from my team [Quokkalight](https://quokkalight.ninja) made this cool design.
 
 ## Setup for local developement.
-* Install `mongodb` for your choice of distrobution.
-* Download the source code with go. `go get github.com/sar5430/crackmes.one`. If you forked it, download it from yourself.
-* `cd go/src/github.com/0xstan/crackmes.one/`
-* Modify the file app/route/route.go, uncomment 
+1. Install `mongodb` for your choice of distribution.
+2. Download the source code with go.
+
+```sh
+go get github.com/sar5430/crackmes.one
 ```
+
+If you forked it, download it from yourself.
+
+3.  go tho repository working dir (i.e. based of `go get`command)
+```sh
+cd go/src/github.com/sar5430/crackmes.one/
+```
+
+4. Modify the file app/route/route.go, uncomment
+
+```golang
 //return middleware(routes())
-```  
-then comment  
 ```
+
+then comment
+
+```golang
 return http.HandlerFunc(redirectToHTTPS)
 ```
+
 in `LoadHTTP()` function.
-* Make a `config` directory, and download this config file into it, and edit it to your liking. (You might want to edit the "Domain" value under "Session")
-`curl 'https://gist.githubusercontent.com/moex3/cb5225653a82dd1729525556e9175e92/raw/5fa39c308f09c1a1b44402305486bdc87fe1a61e/config.json' > config/config.json`
-* Make a `tmp/crackme` and a `tmp/solution` directory. `mkdir -p tmp/{crackme,solution}`
-* Make a `static/crackme` and a `static/solution` directory. `mkdir -p static/{crackme,solution}`
-* Build the binary. `go build`
-* Install `python`, `zip` and `pymongo` if you want to run `validate.py`. (Also change the paths)
-* Run it. `./crackmes.one`
+
+5. Make a `config` directory, and download this config file into it, and edit it to your liking. (You might want to edit the "Domain" value under "Session")
+
+```sh
+mkdir config
+```
+
+```sh
+curl 'https://gist.githubusercontent.com/moex3/cb5225653a82dd1729525556e9175e92/raw/5fa39c308f09c1a1b44402305486bdc87fe1a61e/config.json' > config/config.json
+```
+
+6. Make a `tmp/crackme` and a `tmp/solution` directory.
+
+```sh
+mkdir -p tmp/{crackme,solution}`
+````
+
+7. Make a `static/crackme` and a `static/solution` directory.
+
+```sh
+mkdir -p static/{crackme,solution}
+````
+
+8. Build the binary.
+
+```sh
+go build
+```
+
+9. Install `python`, `zip` and `pymongo` if you want to run `validate.py`. (Also change the paths)
+
+10. Run it.
+
+```sh
+./crackmes.one
+```
