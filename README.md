@@ -19,6 +19,7 @@ go get github.com/sar5430/crackmes.one
 If you forked it, download it from yourself.
 
 3.  go tho repository working dir (i.e. based of `go get`command)
+
 ```sh
 cd go/src/github.com/sar5430/crackmes.one/
 ```
