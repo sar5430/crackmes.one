@@ -8,6 +8,7 @@ This website was created using the [GoWebApp](https://github.com/josephspurrier/
 The really famous guy [Bonclay](https://twitter.com/mpgn_x64) from my team [Quokkalight](https://quokkalight.ninja) made this cool design.
 
 ## Setup for local developement.
+
 1. Install `mongodb` for your choice of distribution.
 2. Download the source code with go.
 
