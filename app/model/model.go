@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 
-	"gopkg.in/mgo.v2"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var (
@@ -20,7 +20,7 @@ var (
 
 // standardizeErrors returns the same error regardless of the database used
 func standardizeError(err error) error {
-	if err == sql.ErrNoRows || err == mgo.ErrNotFound {
+	if err == sql.ErrNoRows || err == mongo.ErrNoDocuments {
 		return ErrNoResult
 	}
 
