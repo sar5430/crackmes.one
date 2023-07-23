@@ -1,14 +1,17 @@
 package database
 
 import (
+	"context"
 	"log"
-	"time"
 
-	"gopkg.in/mgo.v2"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 var (
-	Mongo *mgo.Session
+	Ctx       context.Context
+	Mongo     *mongo.Client
 	databases Info
 )
 
@@ -41,17 +44,15 @@ func Connect(d Info) {
 	// Store the config
 	databases = d
 
+	ctx := context.TODO()
+
 	// Connect to MongoDB
-	if Mongo, err = mgo.DialWithTimeout(d.MongoDB.URL, 5*time.Second); err != nil {
+	Mongo, err = mongo.Connect(ctx, options.Client().ApplyURI("mongodb://127.0.0.1:27017"))
+	if err != nil {
 		log.Println("MongoDB Driver Error", err)
 		return
 	}
-
-	// Prevents these errors: read tcp 127.0.0.1:27017: i/o timeout
-	Mongo.SetSocketTimeout(1 * time.Second)
-
-	// Check if is alive
-	if err = Mongo.Ping(); err != nil {
+	if err = Mongo.Ping(ctx, readpref.Primary()); err != nil {
 		log.Println("Database Error", err)
 	}
 }
